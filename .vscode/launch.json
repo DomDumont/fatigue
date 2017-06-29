@@ -4,9 +4,10 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "name": "Client",
             "url": "http://localhost:3000",
-            "webRoot": "${workspaceRoot}"
+            "webRoot": "${workspaceRoot}",
+            "sourceMaps": true            
         },
         {
             "type": "chrome",
