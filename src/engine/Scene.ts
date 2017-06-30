@@ -1,7 +1,9 @@
 import * as PIXI from "pixi.js";
+import {GameManager} from './SceneManager';
 
 export class Scene extends PIXI.Container
     {
+    public  gameManager: GameManager;
     private paused:boolean = false;
     private updateCB = function () 
         { };

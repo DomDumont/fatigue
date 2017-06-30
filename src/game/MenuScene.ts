@@ -1,4 +1,5 @@
 import { Scene } from '../engine/Scene';
+import * as FatGUI from '../engine/Gui';
 
 let img_bunny: any = require("../data/images/bunny.png");
 
@@ -20,6 +21,8 @@ constructor()
     basicText.x = 30;
     basicText.y = 90;
 
+    this.addChild(basicText);
+    /*
     var graphics = new PIXI.Graphics();
         // set a fill and a line style again and draw a rectangle
     graphics.lineStyle(2, 0x0000FF, 1);
@@ -33,7 +36,8 @@ constructor()
         graphics.endFill();
     
         this.addChild(graphics);
-    this.addChild(basicText);
+    */
+    
 
     } // constructor
 
@@ -42,6 +46,11 @@ constructor()
     super.Update();    
     if (this.mySPrite)    
         this.mySPrite.rotation += 0.1;
+    
+    if (this.gameManager.gui.Button("coucou", new FatGUI.ImVec2(20,20)))
+        {
+
+        }
     };
 
 
