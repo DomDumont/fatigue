@@ -14,9 +14,9 @@ let img_bunny:any = require("./data/images/bunny.png");
 
 
 
-var myScene = new Scene();
+var myScene = scenesManager.CreateScene("Menu");
 
-scenesManager.currentScene = myScene;
+scenesManager.goToScene('Menu');
 
 let mySPrite;
 PIXI.loader
@@ -27,9 +27,20 @@ function setup() {
   //This code will run when the loader has finished loading the image
    mySPrite = new PIXI.Sprite(
     PIXI.loader.resources[img_bunny].texture
-  );
+   );
+       // center the sprites anchor point
+        mySPrite.anchor.x = 0.5;
+        mySPrite.anchor.y = 0.5;
+        // move the sprite t the center of the screen
+        mySPrite.position.x = 250;
+        mySPrite.position.y = 250;     
+  
     //Add the cat to the stage
   myScene.addChild(mySPrite);
   
+    //register update event         
+        myScene.onUpdate(function () {
+            mySPrite.rotation += 0.1;
+        });
 }
 
