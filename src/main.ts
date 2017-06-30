@@ -1,22 +1,22 @@
-import * as PIXI from "pixi.js";
-
-
 // http://ezelia.com/2013/pixi-tutorial
+
+import {ScenesManager} from "./engine/SceneManager"
+import {Scene} from "./engine/Scene"
+
+let scenesManager = new ScenesManager();
+ 
+scenesManager.create(500,500);
+
+
+
 
 let img_bunny:any = require("./data/images/bunny.png");
 
 
-var renderer = PIXI.autoDetectRenderer(256, 256);
 
-//Add the canvas to the HTML document
-document.body.appendChild(renderer.view);
+var myScene = new Scene();
 
-//Create a container object called the `stage`
-var stage = new PIXI.Container();
-
-//Tell the `renderer` to `render` the `stage`
-(renderer as any).backgroundColor = 0xAA1639;
-renderer.render(stage);
+scenesManager.currentScene = myScene;
 
 let mySPrite;
 PIXI.loader
@@ -29,9 +29,7 @@ function setup() {
     PIXI.loader.resources[img_bunny].texture
   );
     //Add the cat to the stage
-  stage.addChild(mySPrite);
+  myScene.addChild(mySPrite);
   
-  //Render the stage   
-  renderer.render(stage);
 }
 

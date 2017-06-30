@@ -1,16 +1,13 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = require("pixi.js");
 // http://ezelia.com/2013/pixi-tutorial
+Object.defineProperty(exports, "__esModule", { value: true });
+var SceneManager_1 = require("./engine/SceneManager");
+var Scene_1 = require("./engine/Scene");
+var scenesManager = new SceneManager_1.ScenesManager();
+scenesManager.create(500, 500);
 var img_bunny = require("./data/images/bunny.png");
-var renderer = PIXI.autoDetectRenderer(256, 256);
-//Add the canvas to the HTML document
-document.body.appendChild(renderer.view);
-//Create a container object called the `stage`
-var stage = new PIXI.Container();
-//Tell the `renderer` to `render` the `stage`
-renderer.backgroundColor = 0xAA1639;
-renderer.render(stage);
+var myScene = new Scene_1.Scene();
+scenesManager.currentScene = myScene;
 var mySPrite;
 PIXI.loader
     .add(img_bunny)
@@ -19,8 +16,6 @@ function setup() {
     //This code will run when the loader has finished loading the image
     mySPrite = new PIXI.Sprite(PIXI.loader.resources[img_bunny].texture);
     //Add the cat to the stage
-    stage.addChild(mySPrite);
-    //Render the stage   
-    renderer.render(stage);
+    myScene.addChild(mySPrite);
 }
 //# sourceMappingURL=main.js.map
