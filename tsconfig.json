@@ -4,5 +4,13 @@
         "module": "commonjs",
         "outDir": "./dist",
         "sourceMap": true
-    }
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "**/*.spec.ts",
+        "dist",
+        "node_modules"
+    ]
 }

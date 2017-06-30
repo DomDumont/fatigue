@@ -71,12 +71,14 @@
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __webpack_require__(1);
+var img_bunny = __webpack_require__(2);
 var renderer = PIXI.autoDetectRenderer(256, 256);
 //Add the canvas to the HTML document
 document.body.appendChild(renderer.view);
 //Create a container object called the `stage`
 var stage = new PIXI.Container();
 //Tell the `renderer` to `render` the `stage`
+renderer.backgroundColor = 0xAA1639;
 renderer.render(stage);
 
 
@@ -85,6 +87,12 @@ renderer.render(stage);
 /***/ (function(module, exports) {
 
 module.exports = PIXI;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "data/images/img-af8088581d7842c1c2329b30c0ec7217.png";
 
 /***/ })
 /******/ ]);
