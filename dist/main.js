@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = require("pixi.js");
+// http://ezelia.com/2013/pixi-tutorial
 var img_bunny = require("./data/images/bunny.png");
 var renderer = PIXI.autoDetectRenderer(256, 256);
 //Add the canvas to the HTML document
