@@ -13,7 +13,8 @@ export class Scene extends PIXI.Container
         this.updateCB = updateCB;
     }
 
-    public update() {
+    public Update()
+    {
         this.updateCB();
     }
     public pause() 

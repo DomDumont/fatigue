@@ -20,13 +20,13 @@ export class ScenesManager
         requestAnimationFrame(this.Loop);
 
         if (!this.currentScene || this.currentScene.isPaused()) return;
-        this.currentScene.update();
+        this.currentScene.Update();
         this.renderer.render(this.currentScene);
     }
-       public CreateScene(id: string): Scene {
+       public CreateScene<A extends Scene>(id: string, construct: new () => A): A {
             if (this.scenes[id]) return undefined;
  
-            var scene = new Scene();
+            var scene = new construct();
             this.scenes[id] = scene;
  
             return scene;
