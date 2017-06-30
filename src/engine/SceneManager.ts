@@ -3,23 +3,23 @@ import {Scene} from "./scene";
 
 export class ScenesManager 
 {
-    private static scenes: any = {}; // should be hashmap but a JS object is fine too :)
-    public static currentScene: Scene;
-    public static renderer: PIXI.GraphicsRenderer;
+    private  scenes: any = {}; // should be hashmap but a JS object is fine too :)
+    public  currentScene: Scene;
+    public  renderer: PIXI.WebGLRenderer|PIXI.CanvasRenderer;
 
-    public static create(width: number, height: number) {
-        if (ScenesManager.renderer) return this;
+    public  create(width: number, height: number) {
+        if (this.renderer) return this;
 
-        ScenesManager.renderer = PIXI.autoDetectRenderer(width, height);
-        document.body.appendChild(ScenesManager.renderer.view);
-        requestAnimFrame(ScenesManager.loop);
+        this.renderer = PIXI.autoDetectRenderer(width, height);
+        document.body.appendChild(this.renderer.view);
+        requestAnimationFrame(this.loop);
         return this;
     }
-    private static loop() {
-        requestAnimFrame(function () { ScenesManager.loop() });
+    private  loop() {
+        requestAnimationFrame(function () { this.loop() });
 
-        if (!currentScene || currentScene.isPaused()) return;
-        currentScene.update();
-        ScenesManager.renderer.render(currentScene);
+        if (!this.currentScene || this.currentScene.isPaused()) return;
+        this.currentScene.update();
+        this.renderer.render(this.currentScene);
     }
 }
