@@ -6,9 +6,11 @@
             "request": "launch",
             "name": "Game",
             "url": "http://localhost:3000/",
-            "webRoot": "${workspaceRoot}"
-           "sourceMaps": true,
-
+            "webRoot": "${workspaceRoot}",
+            "linux": {
+                "runtimeExecutable": "/usr/bin/chromium-browser",
+            },
+            "sourceMaps": true,
         }
     ]
 }

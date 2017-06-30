@@ -5,7 +5,7 @@ import { MenuScene } from './game/MenuScene';
 
 let scenesManager = new ScenesManager();
  
-scenesManager.create(500,500);
+scenesManager.create(800,600);
 
 
 

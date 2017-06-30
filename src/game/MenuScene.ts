@@ -1,4 +1,4 @@
-import { Scene } from '../engine/scene';
+import { Scene } from '../engine/Scene';
 
 let img_bunny: any = require("../data/images/bunny.png");
 
@@ -16,7 +16,7 @@ constructor()
     .add(img_bunny)
         .load(this.OnLoadFinished);
     
-    var basicText = new PIXI.Text('Basic text in pixi');
+    var basicText = new PIXI.Text('Yes !!!');
     basicText.x = 30;
     basicText.y = 90;
 
@@ -29,7 +29,7 @@ constructor()
     // draw a rounded rectangle
     graphics.lineStyle(2, 0xFF00FF, 1);
     graphics.beginFill(0xFF00BB, 0.25);
-    graphics.drawRoundedRect(150, 450, 300, 100, 15);
+    graphics.drawRoundedRect(200, 250, 200, 50, 15);
         graphics.endFill();
     
         this.addChild(graphics);
@@ -39,8 +39,9 @@ constructor()
 
  public Update()
     {
-    super.Update();        
-    this.mySPrite.rotation += 0.1;
+    super.Update();    
+    if (this.mySPrite)    
+        this.mySPrite.rotation += 0.1;
     };
 
 
@@ -53,7 +54,7 @@ constructor()
         this.mySPrite.anchor.y = 0.5;
         // move the sprite t the center of the screen
         this.mySPrite.position.x = 250;
-        this.mySPrite.position.y = 250;     
+        this.mySPrite.position.y = 390;     
   
         //Add the cat to the stage
     this.addChild(this.mySPrite);

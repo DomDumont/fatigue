@@ -109,6 +109,7 @@ var ScenesManager = (function () {
         if (this.renderer)
             return this;
         this.renderer = PIXI.autoDetectRenderer(width, height);
+        this.renderer.backgroundColor = 0x1099bb;
         document.body.appendChild(this.renderer.view);
         requestAnimationFrame(this.Loop);
         return this;
@@ -152,7 +153,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var scene_1 = __webpack_require__(4);
+var Scene_1 = __webpack_require__(4);
 var img_bunny = __webpack_require__(5);
 var MenuScene = (function (_super) {
     __extends(MenuScene, _super);
@@ -173,6 +174,21 @@ var MenuScene = (function (_super) {
         PIXI.loader
             .add(img_bunny)
             .load(_this.OnLoadFinished);
+        var basicText = new PIXI.Text('Basic text in pixi');
+        basicText.x = 30;
+        basicText.y = 90;
+        var graphics = new PIXI.Graphics();
+        // set a fill and a line style again and draw a rectangle
+        graphics.lineStyle(2, 0x0000FF, 1);
+        graphics.beginFill(0xFF700B, 1);
+        graphics.drawRect(50, 250, 120, 120);
+        // draw a rounded rectangle
+        graphics.lineStyle(2, 0xFF00FF, 1);
+        graphics.beginFill(0xFF00BB, 0.25);
+        graphics.drawRoundedRect(150, 450, 300, 100, 15);
+        graphics.endFill();
+        _this.addChild(graphics);
+        _this.addChild(basicText);
         return _this;
     } // constructor
     MenuScene.prototype.Update = function () {
@@ -181,7 +197,7 @@ var MenuScene = (function (_super) {
     };
     ;
     return MenuScene;
-}(scene_1.Scene));
+}(Scene_1.Scene));
 exports.MenuScene = MenuScene;
 
 
