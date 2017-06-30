@@ -16,10 +16,10 @@ PIXI.loader
     .load(setup);
 function setup() {
     //This code will run when the loader has finished loading the image
-    mySPrite = new PIXI.Sprite(PIXI.loader.resources["images/anyImage.png"].texture);
+    mySPrite = new PIXI.Sprite(PIXI.loader.resources[img_bunny].texture);
+    //Add the cat to the stage
+    stage.addChild(mySPrite);
+    //Render the stage   
+    renderer.render(stage);
 }
-//Add the cat to the stage
-stage.addChild(mySPrite);
-//Render the stage   
-renderer.render(stage);
 //# sourceMappingURL=main.js.map
