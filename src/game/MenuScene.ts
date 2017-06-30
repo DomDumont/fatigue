@@ -14,7 +14,27 @@ constructor()
         
     PIXI.loader
     .add(img_bunny)
-    .load(this.OnLoadFinished);
+        .load(this.OnLoadFinished);
+    
+    var basicText = new PIXI.Text('Basic text in pixi');
+    basicText.x = 30;
+    basicText.y = 90;
+
+    var graphics = new PIXI.Graphics();
+        // set a fill and a line style again and draw a rectangle
+    graphics.lineStyle(2, 0x0000FF, 1);
+    graphics.beginFill(0xFF700B, 1);
+    graphics.drawRect(50, 250, 120, 120);
+
+    // draw a rounded rectangle
+    graphics.lineStyle(2, 0xFF00FF, 1);
+    graphics.beginFill(0xFF00BB, 0.25);
+    graphics.drawRoundedRect(150, 450, 300, 100, 15);
+        graphics.endFill();
+    
+        this.addChild(graphics);
+    this.addChild(basicText);
+
     } // constructor
 
  public Update()

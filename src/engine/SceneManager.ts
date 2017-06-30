@@ -12,6 +12,7 @@ export class ScenesManager
         if (this.renderer) return this;
 
         this.renderer = PIXI.autoDetectRenderer(width, height);
+        (this.renderer as any).backgroundColor = 0x1099bb;
         document.body.appendChild(this.renderer.view);
         requestAnimationFrame(this.Loop);
         return this;
