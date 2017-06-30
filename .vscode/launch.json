@@ -4,17 +4,11 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Client",
-            "url": "http://localhost:3000",
-            "webRoot": "${workspaceRoot}",
-            "sourceMaps": true            
-        },
-        {
-            "type": "chrome",
-            "request": "attach",
-            "name": "Attach to Chrome",
-            "port": 9222,
+            "name": "Game",
+            "url": "http://localhost:3000/",
             "webRoot": "${workspaceRoot}"
+           "sourceMaps": true,
+
         }
     ]
 }

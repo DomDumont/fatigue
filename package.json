@@ -4,12 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "./node_modules/.bin/webpack-dev-server"
   },
   "author": "DomDom",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.15.3",
     "pixi.js": "^4.5.3"
+  },
+  "devDependencies": {
+    "@types/pixi.js": "^4.5.0",
+    "awesome-typescript-loader": "^3.2.1",
+    "typescript": "^2.4.1",
+    "webpack": "^3.0.0",
+    "webpack-dev-server": "^2.5.0"
   }
 }
