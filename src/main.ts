@@ -1,5 +1,8 @@
 import * as PIXI from "pixi.js";
 
+
+// http://ezelia.com/2013/pixi-tutorial
+
 let img_bunny:any = require("./data/images/bunny.png");
 
 
