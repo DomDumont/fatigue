@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js";
 import {Scene} from "./Scene";
 import * as FatGUI from './Gui';
+import  'stats.js';
 
 
 
@@ -8,7 +9,7 @@ export class GameManager
 {
 
     private static instance: GameManager;
-
+    private stats = new Stats();
     static GetInstance() 
         {
         if (!GameManager.instance) 
@@ -39,10 +40,12 @@ export class GameManager
 
         requestAnimationFrame(this.Loop);
 
+        this.stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+        document.body.appendChild( this.stats.dom );        
         return this;
     }
     private  Loop = () => {
-        
+        this.stats.begin();
         requestAnimationFrame(this.Loop);
 
 
@@ -54,7 +57,7 @@ export class GameManager
         this.renderer.render(this.currentScene);
         
         this.gui.Render();
-        
+        this.stats.end();
     }
 
     public CreateScene<A extends Scene>(id: string, construct: new () => A): A {
