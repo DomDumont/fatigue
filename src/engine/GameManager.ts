@@ -2,6 +2,8 @@ import * as PIXI from "pixi.js";
 import {Scene} from "./Scene";
 import * as FatGUI from './Gui';
 
+
+
 export class GameManager 
 {
 
@@ -29,15 +31,18 @@ export class GameManager
         if (this.renderer) return this;
 
         this.renderer = PIXI.autoDetectRenderer(width, height);
-        (this.renderer as any).backgroundColor = 0x1099bb;
+        (this.renderer as any).backgroundColor = 0x000000;
         document.body.appendChild(this.renderer.view);
 
         this.gui = new FatGUI.FatGUI();
+
+
         requestAnimationFrame(this.Loop);
 
         return this;
     }
     private  Loop = () => {
+        
         requestAnimationFrame(this.Loop);
 
 
@@ -45,9 +50,11 @@ export class GameManager
 
         this.gui.NewFrame();
         this.currentScene.Update();
+        this.currentScene.addChild(this.gui);
         this.renderer.render(this.currentScene);
-        this.renderer.render(this.gui);
+        
         this.gui.Render();
+        
     }
 
     public CreateScene<A extends Scene>(id: string, construct: new () => A): A {

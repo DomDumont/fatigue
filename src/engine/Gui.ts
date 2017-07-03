@@ -38,7 +38,7 @@ export class FatGUI extends PIXI.Container
         // set a fill and a line style again and draw a rectangle
     graphics.lineStyle(2, 0x0000FF, 1);
     graphics.beginFill(0xFF700B, 1);
-    graphics.drawRect(50, 250, pos.x, pos.y);
+    graphics.drawRect(pos.x, pos.y,200,100);
     this.addChild(graphics);
     return true;
     }

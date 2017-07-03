@@ -23,7 +23,7 @@ externals: [
 module:{
   rules:[
     {
-    test: /\.(jpg|png|svg)$/,
+    test: /\.(jpg|png|svg|xml)$/,
     loader: 'file-loader',
 
     options: 

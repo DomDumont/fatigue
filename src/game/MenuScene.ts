@@ -3,6 +3,7 @@ import * as FatGUI from '../engine/Gui';
 
 let img_bunny: any = require("../data/images/bunny.png");
 
+
 export class MenuScene extends Scene
 {
 
@@ -15,7 +16,9 @@ constructor()
         
     PIXI.loader
     .add(img_bunny)
-        .load(this.OnLoadFinished);
+    .add("../data/fonts/Proggy.xml")
+    .on("progress", this.loadProgressHandler)
+    .load(this.OnLoadFinished);
     
     var basicText = new PIXI.Text('Yes !!!');
     basicText.x = 30;
@@ -69,7 +72,28 @@ constructor()
     this.addChild(this.mySPrite);
     
    
+     var bitmapFontText = new PIXI.extras.BitmapText("bitmap fonts are\n now supported!", {font: "ProggyClean", align: "right"});
+ 
+     bitmapFontText.position.x = 200;
+     bitmapFontText.position.y = 200;
+    
+     this.addChild(bitmapFontText);
 
 
     }
+
+    public loadProgressHandler(loader, resource) 
+        {
+
+        //Display the file `url` currently being loaded
+        console.log("loading: " + resource.url); 
+
+        //Display the precentage of files currently loaded
+        console.log("progress: " + loader.progress + "%"); 
+
+        //If you gave your files names as the first argument 
+        //of the `add` method, you can access them like this
+        //console.log("loading: " + resource.name);
+        }
+
 }
