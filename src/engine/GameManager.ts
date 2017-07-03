@@ -4,6 +4,20 @@ import * as FatGUI from './Gui';
 
 export class GameManager 
 {
+
+    private static instance: GameManager;
+
+    static GetInstance() 
+        {
+        if (!GameManager.instance) 
+            {
+            GameManager.instance = new GameManager();
+            // ... any one time initialization goes here ...
+            }
+        return GameManager.instance;
+        }
+
+
     private  scenes: any = {}; // should be hashmap but a JS object is fine too :)
     public  currentScene: Scene;
     public  renderer: PIXI.WebGLRenderer|PIXI.CanvasRenderer;
@@ -32,6 +46,7 @@ export class GameManager
         this.gui.NewFrame();
         this.currentScene.Update();
         this.renderer.render(this.currentScene);
+        this.renderer.render(this.gui);
         this.gui.Render();
     }
 

@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -75,14 +75,34 @@ module.exports = PIXI;
 
 "use strict";
 
-// http://ezelia.com/2013/pixi-tutorial
 Object.defineProperty(exports, "__esModule", { value: true });
-var SceneManager_1 = __webpack_require__(2);
-var MenuScene_1 = __webpack_require__(3);
-var scenesManager = new SceneManager_1.ScenesManager();
-scenesManager.create(500, 500);
-scenesManager.CreateScene("Menu", MenuScene_1.MenuScene);
-scenesManager.goToScene('Menu');
+var ImVec2 = (function () {
+    function ImVec2(_x, _y) {
+        this.x = _x;
+        this.y = _y;
+    }
+    return ImVec2;
+}());
+exports.ImVec2 = ImVec2;
+var FatGUI = (function () {
+    function FatGUI() {
+        this.initialized = false;
+    }
+    FatGUI.prototype.NewFrame = function () {
+    };
+    FatGUI.prototype.Render = function () {
+    };
+    FatGUI.prototype.Button = function (text, pos) {
+        var graphics = new PIXI.Graphics();
+        // set a fill and a line style again and draw a rectangle
+        graphics.lineStyle(2, 0x0000FF, 1);
+        graphics.beginFill(0xFF700B, 1);
+        graphics.drawRect(50, 250, pos.x, pos.y);
+        return true;
+    };
+    return FatGUI;
+}());
+exports.FatGUI = FatGUI;
 
 
 /***/ }),
@@ -91,37 +111,58 @@ scenesManager.goToScene('Menu');
 
 "use strict";
 
+// http://ezelia.com/2013/pixi-tutorial
+Object.defineProperty(exports, "__esModule", { value: true });
+var SceneManager_1 = __webpack_require__(3);
+var MenuScene_1 = __webpack_require__(4);
+var gameManager = new SceneManager_1.GameManager();
+gameManager.create(800, 600);
+gameManager.CreateScene("Menu", MenuScene_1.MenuScene);
+gameManager.goToScene('Menu');
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __webpack_require__(0);
-var ScenesManager = (function () {
-    function ScenesManager() {
+var FatGUI = __webpack_require__(1);
+var GameManager = (function () {
+    function GameManager() {
         var _this = this;
         this.scenes = {}; // should be hashmap but a JS object is fine too :)
         this.Loop = function () {
             requestAnimationFrame(_this.Loop);
             if (!_this.currentScene || _this.currentScene.isPaused())
                 return;
+            _this.gui.NewFrame();
             _this.currentScene.Update();
             _this.renderer.render(_this.currentScene);
+            _this.gui.Render();
         };
     }
-    ScenesManager.prototype.create = function (width, height) {
+    GameManager.prototype.create = function (width, height) {
         if (this.renderer)
             return this;
         this.renderer = PIXI.autoDetectRenderer(width, height);
         this.renderer.backgroundColor = 0x1099bb;
         document.body.appendChild(this.renderer.view);
+        this.gui = new FatGUI.FatGUI();
         requestAnimationFrame(this.Loop);
         return this;
     };
-    ScenesManager.prototype.CreateScene = function (id, construct) {
+    GameManager.prototype.CreateScene = function (id, construct) {
         if (this.scenes[id])
             return undefined;
         var scene = new construct();
+        scene.gameManager = this;
         this.scenes[id] = scene;
         return scene;
     };
-    ScenesManager.prototype.goToScene = function (id) {
+    GameManager.prototype.goToScene = function (id) {
         if (this.scenes[id]) {
             if (this.currentScene)
                 this.currentScene.pause();
@@ -131,13 +172,13 @@ var ScenesManager = (function () {
         }
         return false;
     };
-    return ScenesManager;
+    return GameManager;
 }());
-exports.ScenesManager = ScenesManager;
+exports.GameManager = GameManager;
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -153,8 +194,9 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Scene_1 = __webpack_require__(4);
-var img_bunny = __webpack_require__(5);
+var Scene_1 = __webpack_require__(5);
+var FatGUI = __webpack_require__(1);
+var img_bunny = __webpack_require__(6);
 var MenuScene = (function (_super) {
     __extends(MenuScene, _super);
     function MenuScene() {
@@ -167,33 +209,40 @@ var MenuScene = (function (_super) {
             _this.mySPrite.anchor.y = 0.5;
             // move the sprite t the center of the screen
             _this.mySPrite.position.x = 250;
-            _this.mySPrite.position.y = 250;
+            _this.mySPrite.position.y = 390;
             //Add the cat to the stage
             _this.addChild(_this.mySPrite);
         };
         PIXI.loader
             .add(img_bunny)
             .load(_this.OnLoadFinished);
-        var basicText = new PIXI.Text('Basic text in pixi');
+        var basicText = new PIXI.Text('Yes !!!');
         basicText.x = 30;
         basicText.y = 90;
+        _this.addChild(basicText);
+        return _this;
+        /*
         var graphics = new PIXI.Graphics();
-        // set a fill and a line style again and draw a rectangle
+            // set a fill and a line style again and draw a rectangle
         graphics.lineStyle(2, 0x0000FF, 1);
         graphics.beginFill(0xFF700B, 1);
         graphics.drawRect(50, 250, 120, 120);
+    
         // draw a rounded rectangle
         graphics.lineStyle(2, 0xFF00FF, 1);
         graphics.beginFill(0xFF00BB, 0.25);
-        graphics.drawRoundedRect(150, 450, 300, 100, 15);
-        graphics.endFill();
-        _this.addChild(graphics);
-        _this.addChild(basicText);
-        return _this;
+        graphics.drawRoundedRect(200, 250, 200, 50, 15);
+            graphics.endFill();
+        
+            this.addChild(graphics);
+        */
     } // constructor
     MenuScene.prototype.Update = function () {
         _super.prototype.Update.call(this);
-        this.mySPrite.rotation += 0.1;
+        if (this.mySPrite)
+            this.mySPrite.rotation += 0.1;
+        if (this.gameManager.gui.Button("coucou", new FatGUI.ImVec2(20, 20))) {
+        }
     };
     ;
     return MenuScene;
@@ -202,7 +251,7 @@ exports.MenuScene = MenuScene;
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -248,7 +297,7 @@ exports.Scene = Scene;
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "data/images/img-1c525f6960c2ef60c9b0e64c8ee65634.png";

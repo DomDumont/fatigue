@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import {GameManager} from './SceneManager';
+import {GameManager} from './GameManager';
 
 export class Scene extends PIXI.Container
     {

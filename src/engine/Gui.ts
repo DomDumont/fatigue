@@ -1,3 +1,5 @@
+import {GameManager} from './GameManager';
+
 export class ImVec2
 {
     public x:number;
@@ -11,11 +13,12 @@ export class ImVec2
 
 
 }
-export class FatGUI
+export class FatGUI extends PIXI.Container
 {
     private initialized:boolean;
     constructor()
     {
+        super();
         this.initialized = false;
     }
 
@@ -26,8 +29,7 @@ export class FatGUI
     }
 
     public Render():void
-    {
-        
+    {    
     }
 
     public Button(text:string,pos:ImVec2):boolean
@@ -37,7 +39,7 @@ export class FatGUI
     graphics.lineStyle(2, 0x0000FF, 1);
     graphics.beginFill(0xFF700B, 1);
     graphics.drawRect(50, 250, pos.x, pos.y);
-
+    this.addChild(graphics);
     return true;
     }
 }
