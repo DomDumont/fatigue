@@ -1,6 +1,8 @@
 import {GameManager} from './GameManager';
+import * as Utils from './Utils';
+import * as assert from 'assert';
 
-export class ImVec2
+export class Vec2
 {
     public x:number;
     public y:number;
@@ -16,15 +18,35 @@ export class ImVec2
 
 export class Window 
 {
+    public name:String;
+    public IDStack = [];
+
     constructor(name:String)
     {
-        
+    this.name = name;    
+    this.IDStack.push(Utils.HashCode(name));
+    }
+}
+
+export class IO
+{
+    public DisplaySize:Vec2;
+
+    constructor()
+    {
+        this.DisplaySize = new Vec2(-1, -1);
     }
 }
 
 class Context
 {
     public initialized:boolean;
+    public IO: IO;
+
+    constructor()
+    {
+        this.IO = new IO();
+    }
 }
 
 
@@ -40,16 +62,21 @@ export class PimGUI extends PIXI.Container
     }
 
 
+    public GetIO():IO
+    {
+        return g.IO;
+    }
+
     public NewFrame():void
     {
-
+    assert.ok(g.IO.DisplaySize.x >= 0.0 && g.IO.DisplaySize.y >= 0.0);
     }
 
     public Render():void
     {    
     }
 
-    public Button(text:string,pos:ImVec2):boolean
+    public Button(text:string,pos:Vec2):boolean
     {
     var graphics = new PIXI.Graphics();
         // set a fill and a line style again and draw a rectangle

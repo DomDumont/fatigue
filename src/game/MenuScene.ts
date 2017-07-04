@@ -50,7 +50,7 @@ constructor()
     if (this.mySPrite)    
         this.mySPrite.rotation += 0.1;
     
-    if (this.gameManager.gui.Button("coucou", new FatGUI.ImVec2(20,20)))
+    if (this.gameManager.gui.Button("coucou", new FatGUI.Vec2(20,20)))
         {
 
         }

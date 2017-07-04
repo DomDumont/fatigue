@@ -1,7 +1,7 @@
-import * as PIXI from "pixi.js";
+import * as PIXI from 'pixi.js';
 import {Scene} from "./Scene";
 import * as PimGUI from './PimGUI';
-import  'stats.js';
+import 'stats.js';
 
 
 export class GameManager 
@@ -28,7 +28,10 @@ export class GameManager
 
     public create(width: number, height: number)
     {
-        if (this.renderer) return this;
+        if (this.renderer) 
+            {
+            return this;
+            }
 
         this.renderer = PIXI.autoDetectRenderer(width, height);
         (this.renderer as any).backgroundColor = 0x000000;
@@ -36,10 +39,17 @@ export class GameManager
 
         this.gui = new PimGUI.PimGUI();
 
+        let IO:PimGUI.IO = this.gui.GetIO();
+        IO.DisplaySize.x = width;
+        IO.DisplaySize.y = height;
+
 
         requestAnimationFrame(this.Loop);
 
         this.stats.showPanel( 0 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+        this.stats.dom.style.position = 'absolute';
+		this.stats.dom.style.top = '10px';
+        this.stats.dom.style.left = '10px';
         document.body.appendChild( this.stats.dom );        
         return this;
     }

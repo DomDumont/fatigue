@@ -75,7 +75,18 @@ module.exports = PIXI;
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
+var Utils = __webpack_require__(4);
 var ImVec2 = (function () {
     function ImVec2(_x, _y) {
         this.x = _x;
@@ -84,25 +95,44 @@ var ImVec2 = (function () {
     return ImVec2;
 }());
 exports.ImVec2 = ImVec2;
-var FatGUI = (function () {
-    function FatGUI() {
-        this.initialized = false;
+var Window = (function () {
+    function Window(name) {
+        this.IDStack = [];
+        this.name = name;
+        this.IDStack.push(Utils.HashCode(name));
     }
-    FatGUI.prototype.NewFrame = function () {
+    return Window;
+}());
+exports.Window = Window;
+var Context = (function () {
+    function Context() {
+    }
+    return Context;
+}());
+var g = new Context();
+var PimGUI = (function (_super) {
+    __extends(PimGUI, _super);
+    function PimGUI() {
+        var _this = _super.call(this) || this;
+        g.initialized = false;
+        return _this;
+    }
+    PimGUI.prototype.NewFrame = function () {
     };
-    FatGUI.prototype.Render = function () {
+    PimGUI.prototype.Render = function () {
     };
-    FatGUI.prototype.Button = function (text, pos) {
+    PimGUI.prototype.Button = function (text, pos) {
         var graphics = new PIXI.Graphics();
         // set a fill and a line style again and draw a rectangle
         graphics.lineStyle(2, 0x0000FF, 1);
         graphics.beginFill(0xFF700B, 1);
-        graphics.drawRect(50, 250, pos.x, pos.y);
+        graphics.drawRect(pos.x, pos.y, 200, 100);
+        this.addChild(graphics);
         return true;
     };
-    return FatGUI;
-}());
-exports.FatGUI = FatGUI;
+    return PimGUI;
+}(PIXI.Container));
+exports.PimGUI = PimGUI;
 
 
 /***/ }),
@@ -113,9 +143,9 @@ exports.FatGUI = FatGUI;
 
 // http://ezelia.com/2013/pixi-tutorial
 Object.defineProperty(exports, "__esModule", { value: true });
-var SceneManager_1 = __webpack_require__(3);
-var MenuScene_1 = __webpack_require__(4);
-var gameManager = new SceneManager_1.GameManager();
+var GameManager_1 = __webpack_require__(3);
+var MenuScene_1 = __webpack_require__(6);
+var gameManager = GameManager_1.GameManager.GetInstance();
 gameManager.create(800, 600);
 gameManager.CreateScene("Menu", MenuScene_1.MenuScene);
 gameManager.goToScene('Menu');
@@ -129,29 +159,43 @@ gameManager.goToScene('Menu');
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var PIXI = __webpack_require__(0);
-var FatGUI = __webpack_require__(1);
+var PimGUI = __webpack_require__(1);
+__webpack_require__(5);
 var GameManager = (function () {
     function GameManager() {
         var _this = this;
+        this.stats = new Stats();
         this.scenes = {}; // should be hashmap but a JS object is fine too :)
         this.Loop = function () {
+            _this.stats.begin();
             requestAnimationFrame(_this.Loop);
             if (!_this.currentScene || _this.currentScene.isPaused())
                 return;
             _this.gui.NewFrame();
             _this.currentScene.Update();
+            _this.currentScene.addChild(_this.gui);
             _this.renderer.render(_this.currentScene);
             _this.gui.Render();
+            _this.stats.end();
         };
     }
+    GameManager.GetInstance = function () {
+        if (!GameManager.instance) {
+            GameManager.instance = new GameManager();
+            // ... any one time initialization goes here ...
+        }
+        return GameManager.instance;
+    };
     GameManager.prototype.create = function (width, height) {
         if (this.renderer)
             return this;
         this.renderer = PIXI.autoDetectRenderer(width, height);
-        this.renderer.backgroundColor = 0x1099bb;
+        this.renderer.backgroundColor = 0x000000;
         document.body.appendChild(this.renderer.view);
-        this.gui = new FatGUI.FatGUI();
+        this.gui = new PimGUI.PimGUI();
         requestAnimationFrame(this.Loop);
+        this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+        document.body.appendChild(this.stats.dom);
         return this;
     };
     GameManager.prototype.CreateScene = function (id, construct) {
@@ -183,6 +227,25 @@ exports.GameManager = GameManager;
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
+function HashCode(s) {
+    return s.split("").reduce(function (a, b) { a = ((a << 5) - a) + b.charCodeAt(0); return a & a; }, 0);
+}
+exports.HashCode = HashCode;
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports = Stats;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -194,9 +257,9 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Scene_1 = __webpack_require__(5);
+var Scene_1 = __webpack_require__(7);
 var FatGUI = __webpack_require__(1);
-var img_bunny = __webpack_require__(6);
+var img_bunny = __webpack_require__(8);
 var MenuScene = (function (_super) {
     __extends(MenuScene, _super);
     function MenuScene() {
@@ -212,9 +275,15 @@ var MenuScene = (function (_super) {
             _this.mySPrite.position.y = 390;
             //Add the cat to the stage
             _this.addChild(_this.mySPrite);
+            var bitmapFontText = new PIXI.extras.BitmapText("bitmap fonts are\n now supported!", { font: "ProggyClean", align: "right" });
+            bitmapFontText.position.x = 200;
+            bitmapFontText.position.y = 200;
+            _this.addChild(bitmapFontText);
         };
         PIXI.loader
             .add(img_bunny)
+            .add("../data/fonts/Proggy.xml")
+            .on("progress", _this.loadProgressHandler)
             .load(_this.OnLoadFinished);
         var basicText = new PIXI.Text('Yes !!!');
         basicText.x = 30;
@@ -245,13 +314,22 @@ var MenuScene = (function (_super) {
         }
     };
     ;
+    MenuScene.prototype.loadProgressHandler = function (loader, resource) {
+        //Display the file `url` currently being loaded
+        console.log("loading: " + resource.url);
+        //Display the precentage of files currently loaded
+        console.log("progress: " + loader.progress + "%");
+        //If you gave your files names as the first argument 
+        //of the `add` method, you can access them like this
+        //console.log("loading: " + resource.name);
+    };
     return MenuScene;
 }(Scene_1.Scene));
 exports.MenuScene = MenuScene;
 
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -297,7 +375,7 @@ exports.Scene = Scene;
 
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "data/images/img-1c525f6960c2ef60c9b0e64c8ee65634.png";
