@@ -42,6 +42,7 @@ class Context
 {
     public initialized:boolean;
     public IO: IO;
+    public Windows:Window[];
 
     constructor()
     {
