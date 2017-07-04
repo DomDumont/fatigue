@@ -16,7 +16,10 @@ export class ImVec2
 
 export class Window 
 {
-
+    constructor(name:String)
+    {
+        
+    }
 }
 
 class Context
