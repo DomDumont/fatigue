@@ -20,6 +20,9 @@ export class Window
 {
     public name:String;
     public IDStack = [];
+    public Size:Vec2;
+    public SizeFull:Vec2;
+
 
     constructor(name:String)
     {
@@ -87,4 +90,13 @@ export class PimGUI extends PIXI.Container
     this.addChild(graphics);
     return true;
     }
-}
+
+    public CreateNewWindow(name: String,size:Vec2, flags: Number)
+    {
+        let tempWindow:Window = new Window(name);
+        tempWindow.Size = size;
+        tempWindow.SizeFull = size;
+
+        g.Windows.push(tempWindow);
+    }
+} //Class PimGUI 
