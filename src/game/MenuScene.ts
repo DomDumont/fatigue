@@ -1,5 +1,5 @@
 import { Scene } from '../engine/Scene';
-import * as FatGUI from '../engine/Gui';
+import * as FatGUI from '../engine/PimGUI';
 
 let img_bunny: any = require("../data/images/bunny.png");
 

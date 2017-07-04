@@ -1,8 +1,7 @@
 import * as PIXI from "pixi.js";
 import {Scene} from "./Scene";
-import * as FatGUI from './Gui';
+import * as PimGUI from './PimGUI';
 import  'stats.js';
-
 
 
 export class GameManager 
@@ -25,7 +24,7 @@ export class GameManager
     public  currentScene: Scene;
     public  renderer: PIXI.WebGLRenderer|PIXI.CanvasRenderer;
 
-    public gui:FatGUI.FatGUI;
+    public gui:PimGUI.PimGUI;
 
     public create(width: number, height: number)
     {
@@ -35,7 +34,7 @@ export class GameManager
         (this.renderer as any).backgroundColor = 0x000000;
         document.body.appendChild(this.renderer.view);
 
-        this.gui = new FatGUI.FatGUI();
+        this.gui = new PimGUI.PimGUI();
 
 
         requestAnimationFrame(this.Loop);

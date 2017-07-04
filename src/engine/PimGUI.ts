@@ -13,13 +13,27 @@ export class ImVec2
 
 
 }
-export class FatGUI extends PIXI.Container
+
+export class Window 
 {
-    private initialized:boolean;
+
+}
+
+class Context
+{
+    public initialized:boolean;
+}
+
+
+let g:Context = new Context();
+
+export class PimGUI extends PIXI.Container
+{
+    
     constructor()
     {
         super();
-        this.initialized = false;
+        g.initialized = false;
     }
 
 
