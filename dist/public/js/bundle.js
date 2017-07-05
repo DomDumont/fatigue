@@ -60,107 +60,19 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
-
-module.exports = PIXI;
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var Utils = __webpack_require__(4);
-var ImVec2 = (function () {
-    function ImVec2(_x, _y) {
-        this.x = _x;
-        this.y = _y;
-    }
-    return ImVec2;
-}());
-exports.ImVec2 = ImVec2;
-var Window = (function () {
-    function Window(name) {
-        this.IDStack = [];
-        this.name = name;
-        this.IDStack.push(Utils.HashCode(name));
-    }
-    return Window;
-}());
-exports.Window = Window;
-var Context = (function () {
-    function Context() {
-    }
-    return Context;
-}());
-var g = new Context();
-var PimGUI = (function (_super) {
-    __extends(PimGUI, _super);
-    function PimGUI() {
-        var _this = _super.call(this) || this;
-        g.initialized = false;
-        return _this;
-    }
-    PimGUI.prototype.NewFrame = function () {
-    };
-    PimGUI.prototype.Render = function () {
-    };
-    PimGUI.prototype.Button = function (text, pos) {
-        var graphics = new PIXI.Graphics();
-        // set a fill and a line style again and draw a rectangle
-        graphics.lineStyle(2, 0x0000FF, 1);
-        graphics.beginFill(0xFF700B, 1);
-        graphics.drawRect(pos.x, pos.y, 200, 100);
-        this.addChild(graphics);
-        return true;
-    };
-    return PimGUI;
-}(PIXI.Container));
-exports.PimGUI = PimGUI;
-
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// http://ezelia.com/2013/pixi-tutorial
-Object.defineProperty(exports, "__esModule", { value: true });
-var GameManager_1 = __webpack_require__(3);
-var MenuScene_1 = __webpack_require__(6);
-var gameManager = GameManager_1.GameManager.GetInstance();
-gameManager.create(800, 600);
-gameManager.CreateScene("Menu", MenuScene_1.MenuScene);
-gameManager.goToScene('Menu');
-
-
-/***/ }),
-/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__(0);
-var PimGUI = __webpack_require__(1);
-__webpack_require__(5);
+var PIXI = __webpack_require__(1);
+var PimGUI = __webpack_require__(2);
+__webpack_require__(4);
 var GameManager = (function () {
     function GameManager() {
         var _this = this;
@@ -171,15 +83,13 @@ var GameManager = (function () {
             requestAnimationFrame(_this.Loop);
             if (!_this.currentScene || _this.currentScene.isPaused())
                 return;
-            _this.gui.NewFrame();
             _this.currentScene.Update();
-            _this.currentScene.addChild(_this.gui);
-            _this.renderer.render(_this.currentScene);
-            _this.gui.Render();
+            _this.renderer.render(_this.gui);
             _this.stats.end();
         };
+        this.gui = new PimGUI.PimGUI();
     }
-    GameManager.GetInstance = function () {
+    GameManager.Get = function () {
         if (!GameManager.instance) {
             GameManager.instance = new GameManager();
             // ... any one time initialization goes here ...
@@ -187,14 +97,17 @@ var GameManager = (function () {
         return GameManager.instance;
     };
     GameManager.prototype.create = function (width, height) {
-        if (this.renderer)
+        if (this.renderer) {
             return this;
+        }
         this.renderer = PIXI.autoDetectRenderer(width, height);
-        this.renderer.backgroundColor = 0x000000;
+        this.renderer.backgroundColor = 0xAAAAAA;
         document.body.appendChild(this.renderer.view);
-        this.gui = new PimGUI.PimGUI();
         requestAnimationFrame(this.Loop);
         this.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
+        this.stats.dom.style.position = 'absolute';
+        this.stats.dom.style.top = '10px';
+        this.stats.dom.style.left = '10px';
         document.body.appendChild(this.stats.dom);
         return this;
     };
@@ -208,9 +121,14 @@ var GameManager = (function () {
     };
     GameManager.prototype.goToScene = function (id) {
         if (this.scenes[id]) {
-            if (this.currentScene)
+            if (this.currentScene) {
+                //Pause old scene and remove it from the GUI
+                this.gui.removeChild(this.currentScene);
                 this.currentScene.pause();
+            }
+            //Set currentScene, add it to the GUI node, and resume it
             this.currentScene = this.scenes[id];
+            this.gui.addChild(this.currentScene);
             this.currentScene.resume();
             return true;
         }
@@ -222,26 +140,13 @@ exports.GameManager = GameManager;
 
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-function HashCode(s) {
-    return s.split("").reduce(function (a, b) { a = ((a << 5) - a) + b.charCodeAt(0); return a & a; }, 0);
-}
-exports.HashCode = HashCode;
-
-
-/***/ }),
-/* 5 */
+/* 1 */
 /***/ (function(module, exports) {
 
-module.exports = Stats;
+module.exports = PIXI;
 
 /***/ }),
-/* 6 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -257,9 +162,77 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Scene_1 = __webpack_require__(7);
-var FatGUI = __webpack_require__(1);
-var img_bunny = __webpack_require__(8);
+var Vec2 = (function () {
+    function Vec2(_x, _y) {
+        this.x = _x;
+        this.y = _y;
+    }
+    return Vec2;
+}());
+exports.Vec2 = Vec2;
+var PimGUI = (function (_super) {
+    __extends(PimGUI, _super);
+    function PimGUI() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    PimGUI.prototype.CreateWindow = function (title, size) {
+        var roundBox = new PIXI.Graphics();
+        roundBox.lineStyle(4, 0x99CCFF, 1);
+        roundBox.beginFill(0x000000);
+        roundBox.drawRoundedRect(0, 0, size.x, size.y, 10);
+        roundBox.endFill();
+        roundBox.x = 0;
+        roundBox.y = 0;
+        roundBox.alpha = 0.5;
+        this.addChild(roundBox);
+    };
+    return PimGUI;
+}(PIXI.Container)); //Class PimGUI 
+exports.PimGUI = PimGUI;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// http://ezelia.com/2013/pixi-tutorial
+Object.defineProperty(exports, "__esModule", { value: true });
+var GameManager_1 = __webpack_require__(0);
+var MenuScene_1 = __webpack_require__(5);
+var gameManager = GameManager_1.GameManager.Get();
+gameManager.create(800, 600);
+gameManager.CreateScene("Menu", MenuScene_1.MenuScene);
+gameManager.goToScene('Menu');
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = Stats;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Scene_1 = __webpack_require__(6);
+var PimGUI = __webpack_require__(2);
+var img_bunny = __webpack_require__(7);
 var MenuScene = (function (_super) {
     __extends(MenuScene, _super);
     function MenuScene() {
@@ -275,10 +248,10 @@ var MenuScene = (function (_super) {
             _this.mySPrite.position.y = 390;
             //Add the cat to the stage
             _this.addChild(_this.mySPrite);
-            var bitmapFontText = new PIXI.extras.BitmapText("bitmap fonts are\n now supported!", { font: "ProggyClean", align: "right" });
-            bitmapFontText.position.x = 200;
-            bitmapFontText.position.y = 200;
-            _this.addChild(bitmapFontText);
+            _this.bitmapFontText = new PIXI.extras.BitmapText("Test of India", { font: "ProggyClean", align: "right" });
+            _this.bitmapFontText.position.x = 200;
+            _this.bitmapFontText.position.y = 200;
+            _this.addChild(_this.bitmapFontText);
         };
         PIXI.loader
             .add(img_bunny)
@@ -289,6 +262,7 @@ var MenuScene = (function (_super) {
         basicText.x = 30;
         basicText.y = 90;
         _this.addChild(basicText);
+        _this.gameManager.gui.CreateWindow("Test", new PimGUI.Vec2(300, 300));
         return _this;
         /*
         var graphics = new PIXI.Graphics();
@@ -308,9 +282,9 @@ var MenuScene = (function (_super) {
     } // constructor
     MenuScene.prototype.Update = function () {
         _super.prototype.Update.call(this);
-        if (this.mySPrite)
+        if (this.mySPrite) {
             this.mySPrite.rotation += 0.1;
-        if (this.gameManager.gui.Button("coucou", new FatGUI.ImVec2(20, 20))) {
+            this.bitmapFontText.text = 'rotation = ' + this.mySPrite.rotation;
         }
     };
     ;
@@ -329,7 +303,7 @@ exports.MenuScene = MenuScene;
 
 
 /***/ }),
-/* 7 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -345,13 +319,15 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var PIXI = __webpack_require__(0);
+var PIXI = __webpack_require__(1);
+var GameManager_1 = __webpack_require__(0);
 var Scene = (function (_super) {
     __extends(Scene, _super);
     function Scene() {
         var _this = _super.call(this) || this;
         _this.paused = false;
         _this.updateCB = function () { };
+        _this.gameManager = GameManager_1.GameManager.Get();
         return _this;
     }
     Scene.prototype.onUpdate = function (updateCB) {
@@ -375,7 +351,7 @@ exports.Scene = Scene;
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "data/images/img-1c525f6960c2ef60c9b0e64c8ee65634.png";

@@ -8,6 +8,7 @@ export class MenuScene extends Scene
 {
 
 private  mySPrite: PIXI.Sprite;
+private bitmapFontText:PIXI.extras.BitmapText;
 
   
 constructor()
@@ -26,7 +27,7 @@ constructor()
 
     this.addChild(basicText);
 
-    this.gameManager.gui.CreateWindow("Test",new PimGUI.Vec2(300,300));
+    
     
     /*
     var graphics = new PIXI.Graphics();
@@ -54,6 +55,7 @@ constructor()
     if (this.mySPrite)    
         {
         this.mySPrite.rotation += 0.1;
+        this.bitmapFontText.text = 'rotation = '+ this.mySPrite.rotation;
         }
     };
 
@@ -73,14 +75,14 @@ constructor()
     this.addChild(this.mySPrite);
     
    
-     var bitmapFontText = new PIXI.extras.BitmapText("Test of India", {font: "ProggyClean", align: "right"});
+     this.bitmapFontText = new PIXI.extras.BitmapText("Test of India", {font: "ProggyClean", align: "right"});
  
-     bitmapFontText.position.x = 200;
-     bitmapFontText.position.y = 200;
+     this.bitmapFontText.position.x = 200;
+     this.bitmapFontText.position.y = 200;
     
-     this.addChild(bitmapFontText);
+     this.addChild(this.bitmapFontText);
 
-
+    this.gameManager.gui.CreateWindow("Test",new PimGUI.Vec2(300,300));
     }
 
     public loadProgressHandler(loader, resource) 
