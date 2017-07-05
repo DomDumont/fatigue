@@ -48,14 +48,8 @@ constructor()
     {
     super.Update();    
     if (this.mySPrite)    
-        this.mySPrite.rotation += 0.1;
-    let myBoolean:boolean;
-    PimGUI.PimGUI.Get().Begin("Test Window",myBoolean,new PimGUI.Vec2(200,200),0.6,0);
-    PimGUI.PimGUI.Get().End();
-
-    if (PimGUI.PimGUI.Get().Button("coucou", new PimGUI.Vec2(20,20)))
         {
-
+        this.mySPrite.rotation += 0.1;
         }
     };
 

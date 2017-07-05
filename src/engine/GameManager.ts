@@ -39,10 +39,6 @@ export class GameManager
 
     
 
-        let IO:PimGUI.IO = PimGUI.PimGUI.Get().GetIO();
-        IO.DisplaySize.x = width;
-        IO.DisplaySize.y = height;
-
 
         requestAnimationFrame(this.Loop);
 
@@ -60,12 +56,11 @@ export class GameManager
 
         if (!this.currentScene || this.currentScene.isPaused()) return;
 
-        PimGUI.PimGUI.Get().NewFrame();
+
         this.currentScene.Update();
-        this.currentScene.addChild(PimGUI.PimGUI.Get());
         this.renderer.render(this.currentScene);
         
-        PimGUI.PimGUI.Get().Render();
+    
         this.stats.end();
     }
 
