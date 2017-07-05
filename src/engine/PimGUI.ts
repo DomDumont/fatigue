@@ -19,9 +19,12 @@ export class Vec2
 export class Window 
 {
     public name:String;
+    public ID:Number;
     public IDStack = [];
     public Size:Vec2;
     public SizeFull:Vec2;
+    public LastFrameActive:Number;
+    public Flags:Number;
 
 
     constructor(name:String)
@@ -46,6 +49,7 @@ class Context
     public initialized:boolean;
     public IO: IO;
     public Windows:Window[];
+    public FrameCount: Number;
 
     constructor()
     {
@@ -91,12 +95,48 @@ export class PimGUI extends PIXI.Container
     return true;
     }
 
-    public CreateNewWindow(name: String,size:Vec2, flags: Number)
+    public CreateNewWindow(name: String,size:Vec2, flags: Number):Window
     {
         let tempWindow:Window = new Window(name);
         tempWindow.Size = size;
         tempWindow.SizeFull = size;
 
         g.Windows.push(tempWindow);
+
+        return tempWindow;
+    }
+
+
+    public FindWindowByName(name:String): Window
+        {
+            let tempID:Number = Utils.HashCode(name);
+            g.Windows.forEach(element => {
+                if (element.ID == tempID)
+                    {
+                    return element;
+                    }
+            });
+            return null;
+        }
+
+    public Begin(name: String, p_open : Boolean,size_on_first_use : Vec2, bg_alpha : Number,flags:Number):Boolean    
+    {
+    // Find or create
+    let window_is_new:Boolean = false;
+    let window:Window = this.FindWindowByName(name);
+    if (!window)
+        {
+        window = this.CreateNewWindow(name, size_on_first_use, flags);
+        window_is_new = true;
+        }
+    let current_frame:Number = g.FrameCount;
+
+    const first_begin_of_the_frame:Boolean = (window.LastFrameActive != current_frame);
+    if (first_begin_of_the_frame)
+        window.Flags = flags;
+    else
+        flags = window.Flags;
+
+        return true;
     }
 } //Class PimGUI 
