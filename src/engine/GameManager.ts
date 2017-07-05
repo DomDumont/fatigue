@@ -9,7 +9,9 @@ export class GameManager
 
     private static instance: GameManager;
     private stats = new Stats();
-    static GetInstance() 
+    public gui:PimGUI.PimGUI;
+
+    static Get() 
         {
         if (!GameManager.instance) 
             {
@@ -19,6 +21,10 @@ export class GameManager
         return GameManager.instance;
         }
 
+    private constructor()
+    {
+        this.gui = new PimGUI.PimGUI();
+    }
 
     private  scenes: any = {}; // should be hashmap but a JS object is fine too :)
     public  currentScene: Scene;
@@ -58,7 +64,7 @@ export class GameManager
 
 
         this.currentScene.Update();
-        this.renderer.render(this.currentScene);
+        this.renderer.render(this.gui);
         
     
         this.stats.end();
@@ -77,9 +83,17 @@ export class GameManager
     public goToScene(id: string): boolean
     {
 
-        if (this.scenes[id]) {
-            if (this.currentScene) this.currentScene.pause();
+        if (this.scenes[id]) 
+        {
+            if (this.currentScene) 
+                {
+                //Pause old scene and remove it from the GUI
+                this.gui.removeChild(this.currentScene);
+                this.currentScene.pause();
+            }
+            //Set currentScene, add it to the GUI node, and resume it
             this.currentScene = this.scenes[id];
+            this.gui.addChild(this.currentScene);
             this.currentScene.resume();
             return true;
         }

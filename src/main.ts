@@ -3,7 +3,7 @@
 import {GameManager} from "./engine/GameManager"
 import { MenuScene } from './game/MenuScene';
 
-let gameManager = GameManager.GetInstance();
+let gameManager = GameManager.Get();
  
 gameManager.create(800,600);
 

@@ -25,6 +25,9 @@ constructor()
     basicText.y = 90;
 
     this.addChild(basicText);
+
+    this.gameManager.gui.CreateWindow("Test",new PimGUI.Vec2(300,300));
+    
     /*
     var graphics = new PIXI.Graphics();
         // set a fill and a line style again and draw a rectangle
@@ -40,6 +43,7 @@ constructor()
     
         this.addChild(graphics);
     */
+    
     
 
     } // constructor
@@ -69,7 +73,7 @@ constructor()
     this.addChild(this.mySPrite);
     
    
-     var bitmapFontText = new PIXI.extras.BitmapText("bitmap fonts are\n now supported!", {font: "ProggyClean", align: "right"});
+     var bitmapFontText = new PIXI.extras.BitmapText("Test of India", {font: "ProggyClean", align: "right"});
  
      bitmapFontText.position.x = 200;
      bitmapFontText.position.y = 200;

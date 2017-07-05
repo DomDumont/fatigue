@@ -8,8 +8,10 @@ export class Scene extends PIXI.Container
     private updateCB = function () 
         { };
 
-    constructor() {
-        super()
+    constructor() 
+    {
+        super();
+        this.gameManager = GameManager.Get();
     }
     public onUpdate(updateCB: () => void ) {
         this.updateCB = updateCB;
