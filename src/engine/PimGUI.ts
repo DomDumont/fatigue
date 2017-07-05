@@ -16,23 +16,7 @@ export class Vec2
 
 }
 
-export class Window 
-{
-    public name:String;
-    public ID:Number;
-    public IDStack = [];
-    public Size:Vec2;
-    public SizeFull:Vec2;
-    public LastFrameActive:Number;
-    public Flags:Number;
 
-
-    constructor(name:String)
-    {
-    this.name = name;    
-    this.IDStack.push(Utils.HashCode(name));
-    }
-}
 
 export class IO
 {
@@ -49,17 +33,49 @@ class Context
     public initialized:boolean;
     public IO: IO;
     public Windows:Window[];
-    public FrameCount: Number;
+    public CurrentWindowStack:Window[];
+    public FrameCount: number;
+    public FontSize: number;
+    public CurrentWindow:Window;                      // Being drawn into
+    public FontBaseSize:number;                       // (Shortcut) == IO.FontGlobalScale * Font->Scale * Font->FontSize. Size of characters.
 
     constructor()
     {
         this.IO = new IO();
         this.Windows = [];
+        this.CurrentWindowStack = [];
+        this.FontSize = this.FontBaseSize = 0.0;
     }
 }
 
 
 let g:Context = new Context();
+
+export class Window 
+{
+    public name:string;
+    public ID:number;
+    public IDStack = [];
+    public Size:Vec2;
+    public SizeFull:Vec2;
+    public LastFrameActive:number;
+    public Flags:number;
+    public FontWindowScale:number;                    // Scale multiplier per-window
+
+
+    constructor(name:string)
+    {
+    this.name = name;    
+    this.IDStack.push(Utils.HashCode(name));
+    }
+
+    public CalcFontSize():number 
+    { 
+        let temp:number = g.FontBaseSize * this.FontWindowScale;
+        return temp; 
+        
+    }
+}
 
 export class PimGUI extends PIXI.Container
 {
@@ -107,7 +123,7 @@ export class PimGUI extends PIXI.Container
     return true;
     }
 
-    public CreateNewWindow(name: String,size:Vec2, flags: Number):Window
+    public CreateNewWindow(name: string,size:Vec2, flags: Number):Window
     {
         let tempWindow:Window = new Window(name);
         tempWindow.Size = size;
@@ -119,9 +135,9 @@ export class PimGUI extends PIXI.Container
     }
 
 
-    public FindWindowByName(name:String): Window
+    public FindWindowByName(name:string): Window
         {
-            let tempID:Number = Utils.HashCode(name);
+            let tempID:number = Utils.HashCode(name);
             g.Windows.forEach(element => {
                 if (element.ID == tempID)
                     {
@@ -131,24 +147,35 @@ export class PimGUI extends PIXI.Container
             return null;
         }
 
-    public Begin(name: String, p_open : Boolean,size_on_first_use : Vec2, bg_alpha : Number,flags:Number):Boolean    
+    public SetCurrentWindow(window:Window):void
+    {
+    g.CurrentWindow = window;
+    if (window)
+        {
+        g.FontSize = window.CalcFontSize();
+        }
+    }
+    public Begin(name: string, p_open : boolean,size_on_first_use : Vec2, bg_alpha : number,flags:number):boolean    
     {
     // Find or create
-    let window_is_new:Boolean = false;
+    let window_is_new:boolean = false;
     let window:Window = this.FindWindowByName(name);
     if (!window)
         {
         window = this.CreateNewWindow(name, size_on_first_use, flags);
         window_is_new = true;
         }
-    let current_frame:Number = g.FrameCount;
+    let current_frame:number = g.FrameCount;
 
-    const first_begin_of_the_frame:Boolean = (window.LastFrameActive != current_frame);
+    const first_begin_of_the_frame:boolean = (window.LastFrameActive != current_frame);
     if (first_begin_of_the_frame)
         window.Flags = flags;
     else
         flags = window.Flags;
 
+    let parent_window: Window = !g.CurrentWindowStack.length?null:g.CurrentWindowStack[g.CurrentWindowStack.length -1];
+    g.CurrentWindowStack.push(window);
+    this.SetCurrentWindow(window);
         return true;
     }
 
