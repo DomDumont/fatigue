@@ -34,7 +34,7 @@ export class GameManager
             }
 
         this.renderer = PIXI.autoDetectRenderer(width, height);
-        (this.renderer as any).backgroundColor = 0x000000;
+        (this.renderer as any).backgroundColor = 0xAAAAAA;
         document.body.appendChild(this.renderer.view);
 
     
