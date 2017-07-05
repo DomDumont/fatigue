@@ -51,6 +51,21 @@ class Context
 
 let g:Context = new Context();
 
+class ImDrawList
+{
+    public AddRectFilled(a:Vec2,b:Vec2,col:number,rounding:number,flags:number = 0)
+    {
+
+    }
+
+    public Clear()
+    {
+        
+    }
+}
+
+
+
 export class Window 
 {
     public name:string;
@@ -61,6 +76,8 @@ export class Window
     public LastFrameActive:number;
     public Flags:number;
     public FontWindowScale:number;                    // Scale multiplier per-window
+    public DrawList:ImDrawList;
+    public Active:boolean;
 
 
     constructor(name:string)
@@ -176,11 +193,39 @@ export class PimGUI extends PIXI.Container
     let parent_window: Window = !g.CurrentWindowStack.length?null:g.CurrentWindowStack[g.CurrentWindowStack.length -1];
     g.CurrentWindowStack.push(window);
     this.SetCurrentWindow(window);
-        return true;
+
+    let window_was_active:boolean = (window.LastFrameActive == current_frame - 1);
+
+
+    // When reusing window again multiple times a frame, just append content (don't need to setup again)
+    if (first_begin_of_the_frame)
+    {
+        window.Active = true;
+        // Clear draw list, setup texture, outer clipping rectangle
+        window.DrawList.Clear();
+        
+    }
+    return true;
     }
 
     public End()
     {
+        let window:Window = g.CurrentWindow;
 
+        g.CurrentWindowStack.pop();
+
+        let parent_window: Window = !g.CurrentWindowStack.length?null:g.CurrentWindowStack[g.CurrentWindowStack.length -1];
+        this.SetCurrentWindow(parent_window);
+    }
+
+    public GetCurrentWindow():Window
+    {
+        return g.CurrentWindow;
+    }
+
+    public RenderFrame(p_min:Vec2,p_max:Vec2, fill_col:number,border:boolean,rounding:number)
+    {
+        let window:Window = this.GetCurrentWindow();
+        window.DrawList.AddRectFilled(p_min, p_max, fill_col, rounding);
     }
 } //Class PimGUI 
