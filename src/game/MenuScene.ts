@@ -1,5 +1,5 @@
 import { Scene } from '../engine/Scene';
-import * as FatGUI from '../engine/PimGUI';
+import * as PimGUI from '../engine/PimGUI';
 
 let img_bunny: any = require("../data/images/bunny.png");
 
@@ -49,8 +49,11 @@ constructor()
     super.Update();    
     if (this.mySPrite)    
         this.mySPrite.rotation += 0.1;
-    
-    if (this.gameManager.gui.Button("coucou", new FatGUI.Vec2(20,20)))
+    let myBoolean:Boolean;
+    PimGUI.PimGUI.Get().Begin("Test Window",myBoolean,new PimGUI.Vec2(200,200),0.6,0);
+    PimGUI.PimGUI.Get().End();
+
+    if (PimGUI.PimGUI.Get().Button("coucou", new PimGUI.Vec2(20,20)))
         {
 
         }

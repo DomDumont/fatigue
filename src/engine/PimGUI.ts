@@ -54,6 +54,7 @@ class Context
     constructor()
     {
         this.IO = new IO();
+        this.Windows = [];
     }
 }
 
@@ -63,7 +64,18 @@ let g:Context = new Context();
 export class PimGUI extends PIXI.Container
 {
     
-    constructor()
+    private static instance: PimGUI;
+    static Get() 
+        {
+        if (!PimGUI.instance) 
+            {
+            PimGUI.instance = new PimGUI();
+            // ... any one time initialization goes here ...
+            }
+        return PimGUI.instance;
+        }
+
+    private constructor()
     {
         super();
         g.initialized = false;
@@ -138,5 +150,10 @@ export class PimGUI extends PIXI.Container
         flags = window.Flags;
 
         return true;
+    }
+
+    public End()
+    {
+
     }
 } //Class PimGUI 

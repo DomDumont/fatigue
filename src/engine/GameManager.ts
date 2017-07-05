@@ -24,7 +24,7 @@ export class GameManager
     public  currentScene: Scene;
     public  renderer: PIXI.WebGLRenderer|PIXI.CanvasRenderer;
 
-    public gui:PimGUI.PimGUI;
+    
 
     public create(width: number, height: number)
     {
@@ -37,9 +37,9 @@ export class GameManager
         (this.renderer as any).backgroundColor = 0x000000;
         document.body.appendChild(this.renderer.view);
 
-        this.gui = new PimGUI.PimGUI();
+    
 
-        let IO:PimGUI.IO = this.gui.GetIO();
+        let IO:PimGUI.IO = PimGUI.PimGUI.Get().GetIO();
         IO.DisplaySize.x = width;
         IO.DisplaySize.y = height;
 
@@ -60,12 +60,12 @@ export class GameManager
 
         if (!this.currentScene || this.currentScene.isPaused()) return;
 
-        this.gui.NewFrame();
+        PimGUI.PimGUI.Get().NewFrame();
         this.currentScene.Update();
-        this.currentScene.addChild(this.gui);
+        this.currentScene.addChild(PimGUI.PimGUI.Get());
         this.renderer.render(this.currentScene);
         
-        this.gui.Render();
+        PimGUI.PimGUI.Get().Render();
         this.stats.end();
     }
 
