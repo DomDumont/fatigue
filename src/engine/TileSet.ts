@@ -13,13 +13,14 @@ export class TileSet
         this.nbTilesX = texture.width / sizeX;
         this.nbTilesY = texture.height / sizeY;
 
-        for (let i=0;i< this.nbTilesX;i++)
+        for (let i=0;i< this.nbTilesX-1;i++)
             {
-            for (let j=0;j< this.nbTilesY;j++)
+            for (let j=0;j< this.nbTilesY-1;j++)
                         {
-                        texture.frame = new PIXI.Rectangle(i * sizeX, (i+1) * sizeX,j * sizeY, (j+1) * sizeY);                        
+                        let tempTexture = texture;                            
+                        tempTexture.frame = new PIXI.Rectangle(i * sizeX,j * sizeY, sizeX, sizeY);                        
                         //this.sprites[i][j] = new PIXI.Sprite(texture);
-                        this.sprites.push(new PIXI.Sprite(texture));
+                        this.sprites.push(new PIXI.Sprite(tempTexture));
                         }
             }
         
