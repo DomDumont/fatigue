@@ -4,6 +4,7 @@ export class TileMap extends PIXI.Container
 {
     public tileSet:TileSet;
     // public data:number[][];
+    public sprites:PIXI.Sprite[];
 
     constructor()
     {
@@ -13,6 +14,10 @@ export class TileMap extends PIXI.Container
 
     public SetData(x:number,y:number,spriteIndex:number)
     {
-        this.addChild(this.tileSet.sprites[spriteIndex]);
+        let tempSprite =  this.tileSet.CreateSprite(spriteIndex);
+        tempSprite.position.x = x * 48;
+        tempSprite.position.y = y * 48;
+        this.addChild(tempSprite);
+        
     }
 }

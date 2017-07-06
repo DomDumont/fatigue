@@ -89,6 +89,9 @@ public GetNeededResources()
         this.tileMap.SetData(0,0,10);
         this.tileMap.SetData(0,1,10);
         this.tileMap.SetData(0,2,11);
+        this.tileMap.SetData(1,0,20);
+        this.tileMap.SetData(1,1,21);
+        this.tileMap.SetData(1,2,22);
 
         this.tileMap.position.x =450;
         this.tileMap.position.y = 450;     
