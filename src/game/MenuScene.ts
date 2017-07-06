@@ -1,5 +1,7 @@
 import { Scene } from '../engine/Scene';
 import * as PimGUI from '../engine/PimGUI';
+import {TileMap} from '../engine/TileMap';
+import {TileSet} from '../engine/TileSet';
 
 let img_bunny: any = require("../public/data/images/bunny.png");
 let img_zelda1: any = require("../public/data/images/zelda1.png");
@@ -11,6 +13,8 @@ export class MenuScene extends Scene
 private  mySPrite: PIXI.Sprite;
 private bitmapFontText:PIXI.extras.BitmapText;
 
+private tileSet:TileSet;
+private tileMap:TileMap;
   
 constructor()
     {
@@ -55,7 +59,7 @@ public GetNeededResources()
     };
 
 
-    public OnLoadFinishedCB()
+    public OnLoadFinishedCB():void
     {
     //This code will run when the loader has finished loading the image
     this.mySPrite = new PIXI.Sprite(PIXI.loader.resources[img_bunny].texture);
@@ -78,6 +82,19 @@ public GetNeededResources()
         this.addChild(this.bitmapFontText);
 
         this.gameManager.gui.CreateWindow("Test",new PimGUI.Vec2(300,300));
+
+        this.tileSet = new TileSet(PIXI.loader.resources[img_zelda1].texture,32,32);
+        this.tileMap = new TileMap();        
+        this.tileMap.tileSet = this.tileSet;
+        this.tileMap.SetData(0,0,10);
+        this.tileMap.SetData(0,1,10);
+        this.tileMap.SetData(0,2,11);
+
+        this.tileMap.position.x =450;
+        this.tileMap.position.y = 450;     
+        
+        this.addChild(this.tileMap);
+
     }
 
  

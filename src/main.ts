@@ -5,7 +5,7 @@ import { MenuScene } from './game/MenuScene';
 
 let sceneManager = SceneManager.Get();
  
-sceneManager.create(800,600);
+sceneManager.create(1000,1000);
 
 
 

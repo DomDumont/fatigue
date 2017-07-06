@@ -18,7 +18,7 @@ export abstract class Scene extends PIXI.Container
     }
 
     
-    public abstract OnLoadFinishedCB:void;
+    public abstract OnLoadFinishedCB():void;
 
     public OnLoadFinished = () =>
     {
