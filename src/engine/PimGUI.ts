@@ -20,37 +20,70 @@ export class Window extends PIXI.Container
     private titleText:PIXI.extras.BitmapText;
     private storedData:any;
     private bDragging:boolean;
+
+    private titleBar:PIXI.Graphics;
+    private closeButton:PIXI.Graphics;
+    private windowZone:PIXI.Graphics;
+    private tbheight:number;
+    
     constructor(title:string, size: Vec2)
     {
         super();
 
-        var roundBox = new PIXI.Graphics();
-        roundBox.lineStyle(4, 0x99CCFF, 1);
-        roundBox.beginFill(0x000000);
-        roundBox.drawRoundedRect(0, 0, size.x, size.y, 10)
-        roundBox.endFill();
-        roundBox.x = 0;
-        roundBox.y = 0;
-        roundBox.alpha = 0.5;
-        
-        this.addChild(roundBox);
 
         this.titleText = new PIXI.extras.BitmapText(title, {font: "ProggyClean", align: "right"});
     
-        this.titleText.position.x = 10;
-        this.titleText.position.y = 10;
+        this.titleText.position.x = 5;
+        this.titleText.position.y = 5;
         
         this.addChild(this.titleText);
+
+        this.tbheight = this.titleText.height+ 10;
+        this.titleBar = new PIXI.Graphics();
+        this.titleBar.lineStyle(4, 0x99CCFF, 1);
+        this.titleBar.beginFill(0x000000);
+        this.titleBar.drawRect(0, 0, size.x, this.tbheight);
+        this.titleBar.endFill();
+        this.titleBar.x = 0;
+        this.titleBar.y = 0;
+        this.titleBar.alpha = 0.5;
+        
+        this.titleBar.interactive = true;
+        this.addChild(this.titleBar);
+
+        this.closeButton = new PIXI.Graphics();
+        this.closeButton.lineStyle(4, 0x99CCFF, 1);
+        this.closeButton.beginFill(0xFF0000);
+        this.closeButton.drawRect(size.x- this.tbheight , 0, this.tbheight, this.tbheight);
+        this.closeButton.endFill();
+        this.closeButton.x = 0;
+        this.closeButton.y = 0;
+        this.closeButton.alpha = 0.5;
+        
+        this.titleBar.addChild(this.closeButton);
+
+
+        this.windowZone = new PIXI.Graphics();
+        this.windowZone.lineStyle(4, 0x99CCFF, 1);
+        this.windowZone.beginFill(0x000000);
+        this.windowZone.drawRect(0, this.tbheight, size.x,size.y - this.tbheight );
+        this.windowZone.endFill();
+        this.windowZone.x = 0;
+        this.windowZone.y = 0;
+        this.windowZone.alpha = 0.5;
+
+        this.addChild(this.windowZone);
+
         this.x = 100;
 
 
-        this.interactive = true;
+        
         
          
-        this.on('pointerdown', this.onDragStart);
-        this.on('pointerup', this.onDragEnd);
-        this.on('pointerupoutside', this.onDragEnd);
-        this.on('pointermove', this.onDragMove);
+        this.titleBar.on('pointerdown', this.onDragStart);
+        this.titleBar.on('pointerup', this.onDragEnd);
+        this.titleBar.on('pointerupoutside', this.onDragEnd);
+        this.titleBar.on('pointermove', this.onDragMove);
     }
 
     private  onDragStart = (event) => 
@@ -73,8 +106,8 @@ export class Window extends PIXI.Container
         var newPosition = this.storedData.getLocalPosition(this.parent);
 
         
-        this.x = newPosition.x - this.width/2;
-        this.y = newPosition.y- this.height/2;
+        this.x = newPosition.x;
+        this.y = newPosition.y;
         }        
     }
      

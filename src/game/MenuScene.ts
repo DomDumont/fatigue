@@ -1,7 +1,7 @@
 import { Scene } from '../engine/Scene';
 import * as PimGUI from '../engine/PimGUI';
 
-let img_bunny: any = require("../data/images/bunny.png");
+let img_bunny: any = require("../public/data/images/bunny.png");
 
 
 export class MenuScene extends Scene
