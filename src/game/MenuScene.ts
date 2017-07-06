@@ -2,6 +2,7 @@ import { Scene } from '../engine/Scene';
 import * as PimGUI from '../engine/PimGUI';
 
 let img_bunny: any = require("../public/data/images/bunny.png");
+let img_zelda1: any = require("../public/data/images/zelda1.png");
 
 
 export class MenuScene extends Scene
@@ -17,6 +18,7 @@ constructor()
         
     PIXI.loader
     .add(img_bunny)
+    .add(img_zelda1)
     .add("../data/fonts/Proggy.xml")
     .on("progress", this.loadProgressHandler)
     .load(this.OnLoadFinished);
