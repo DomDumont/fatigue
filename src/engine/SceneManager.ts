@@ -4,21 +4,21 @@ import * as PimGUI from './PimGUI';
 import 'stats.js';
 
 
-export class GameManager 
+export class SceneManager 
 {
 
-    private static instance: GameManager;
+    private static instance: SceneManager;
     private stats = new Stats();
     public gui:PimGUI.PimGUI;
 
     static Get() 
         {
-        if (!GameManager.instance) 
+        if (!SceneManager.instance) 
             {
-            GameManager.instance = new GameManager();
+            SceneManager.instance = new SceneManager();
             // ... any one time initialization goes here ...
             }
-        return GameManager.instance;
+        return SceneManager.instance;
         }
 
     private constructor()
@@ -80,7 +80,7 @@ export class GameManager
         return scene;
     }
  
-    public goToScene(id: string): boolean
+    public GoToScene(id: string): boolean
     {
 
         if (this.scenes[id]) 
@@ -89,12 +89,12 @@ export class GameManager
                 {
                 //Pause old scene and remove it from the GUI
                 this.gui.removeChild(this.currentScene);
-                this.currentScene.pause();
+                this.currentScene.Pause();
             }
             //Set currentScene, add it to the GUI node, and resume it
             this.currentScene = this.scenes[id];
             this.gui.addChild(this.currentScene);
-            this.currentScene.resume();
+            this.currentScene.Resume();
             return true;
         }
         return false;

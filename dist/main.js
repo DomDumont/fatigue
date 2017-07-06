@@ -1,10 +1,10 @@
 "use strict";
 // http://ezelia.com/2013/pixi-tutorial
 Object.defineProperty(exports, "__esModule", { value: true });
-var GameManager_1 = require("./engine/GameManager");
+var SceneManager_1 = require("./engine/SceneManager");
 var MenuScene_1 = require("./game/MenuScene");
-var gameManager = GameManager_1.GameManager.Get();
-gameManager.create(800, 600);
-gameManager.CreateScene("Menu", MenuScene_1.MenuScene);
-gameManager.goToScene('Menu');
+var sceneManager = SceneManager_1.SceneManager.Get();
+sceneManager.create(800, 600);
+sceneManager.CreateScene("Menu", MenuScene_1.MenuScene);
+sceneManager.GoToScene('Menu');
 //# sourceMappingURL=main.js.map

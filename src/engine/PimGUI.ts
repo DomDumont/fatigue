@@ -1,4 +1,4 @@
-import {GameManager} from './GameManager';
+import {SceneManager} from './SceneManager';
 import * as Utils from './Utils';
 import * as assert from 'assert';
 

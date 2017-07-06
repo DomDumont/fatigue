@@ -16,20 +16,6 @@ constructor()
     {
     super();
         
-    PIXI.loader
-    .add(img_bunny)
-    .add(img_zelda1)
-    .add("../data/fonts/Proggy.xml")
-    .on("progress", this.loadProgressHandler)
-    .load(this.OnLoadFinished);
-    
-    var basicText = new PIXI.Text('Yes !!!');
-    basicText.x = 30;
-    basicText.y = 90;
-
-    this.addChild(basicText);
-
-    
     
     /*
     var graphics = new PIXI.Graphics();
@@ -51,6 +37,13 @@ constructor()
 
     } // constructor
 
+public GetNeededResources()
+{
+    return [img_bunny,
+            img_zelda1,
+            "../data/fonts/Proggy.xml"
+            ]
+}
  public Update()
     {
     super.Update();    
@@ -62,43 +55,30 @@ constructor()
     };
 
 
-    private OnLoadFinished = () =>
+    public OnLoadFinishedCB()
     {
-  //This code will run when the loader has finished loading the image
-   this.mySPrite = new PIXI.Sprite(PIXI.loader.resources[img_bunny].texture);
-       // center the sprites anchor point
-        this.mySPrite.anchor.x = 0.5;
-        this.mySPrite.anchor.y = 0.5;
-        // move the sprite t the center of the screen
-        this.mySPrite.position.x = 250;
-        this.mySPrite.position.y = 390;     
-  
-        //Add the cat to the stage
-    this.addChild(this.mySPrite);
+    //This code will run when the loader has finished loading the image
+    this.mySPrite = new PIXI.Sprite(PIXI.loader.resources[img_bunny].texture);
+        // center the sprites anchor point
+            this.mySPrite.anchor.x = 0.5;
+            this.mySPrite.anchor.y = 0.5;
+            // move the sprite t the center of the screen
+            this.mySPrite.position.x = 250;
+            this.mySPrite.position.y = 390;     
     
-   
-     this.bitmapFontText = new PIXI.extras.BitmapText("Test of India", {font: "ProggyClean", align: "right"});
- 
-     this.bitmapFontText.position.x = 200;
-     this.bitmapFontText.position.y = 200;
+            //Add the cat to the stage
+        this.addChild(this.mySPrite);
+        
     
-     this.addChild(this.bitmapFontText);
+        this.bitmapFontText = new PIXI.extras.BitmapText("Test of India", {font: "ProggyClean", align: "right"});
+    
+        this.bitmapFontText.position.x = 200;
+        this.bitmapFontText.position.y = 200;
+        
+        this.addChild(this.bitmapFontText);
 
-    this.gameManager.gui.CreateWindow("Test",new PimGUI.Vec2(300,300));
+        this.gameManager.gui.CreateWindow("Test",new PimGUI.Vec2(300,300));
     }
 
-    public loadProgressHandler(loader, resource) 
-        {
-
-        //Display the file `url` currently being loaded
-        console.log("loading: " + resource.url); 
-
-        //Display the precentage of files currently loaded
-        console.log("progress: " + loader.progress + "%"); 
-
-        //If you gave your files names as the first argument 
-        //of the `add` method, you can access them like this
-        //console.log("loading: " + resource.name);
-        }
-
+ 
 }

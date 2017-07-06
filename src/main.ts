@@ -1,17 +1,17 @@
 // http://ezelia.com/2013/pixi-tutorial
 
-import {GameManager} from "./engine/GameManager"
+import {SceneManager} from "./engine/SceneManager"
 import { MenuScene } from './game/MenuScene';
 
-let gameManager = GameManager.Get();
+let sceneManager = SceneManager.Get();
  
-gameManager.create(800,600);
+sceneManager.create(800,600);
 
 
 
 
 
-gameManager.CreateScene("Menu",MenuScene);
+sceneManager.CreateScene("Menu",MenuScene);
 
-gameManager.goToScene('Menu');
+sceneManager.GoToScene('Menu');
 
