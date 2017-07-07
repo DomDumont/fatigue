@@ -86,6 +86,8 @@ public GetNeededResources()
         this.tileSet = new TileSet(PIXI.loader.resources[img_zelda1].texture.baseTexture,32,32);
         this.tileMap = new TileMap();        
         this.tileMap.tileSet = this.tileSet;
+        this.tileMap.scaleX = 1;
+        this.tileMap.scaleY = 1;
         this.tileMap.SetData(0,0,10);
         this.tileMap.SetData(0,1,10);
         this.tileMap.SetData(0,2,11);
