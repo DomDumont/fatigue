@@ -88,8 +88,8 @@ public GetNeededResources()
         let menuItem1 = new PimGUI.MenuItem();
         let menuItem2 = new PimGUI.MenuItem();
 
-        menuItem1.text.text = "File";
-        menuItem2.text.text = "Edit";
+        menuItem1.Text = "File";
+        menuItem2.Text = "Edit";
 
         // Add two MenuItem objects to the MainMenu.
         mainMenu.MenuItems.push(menuItem1);

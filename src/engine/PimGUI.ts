@@ -18,11 +18,33 @@ export class Vec2
 export class MenuItem
 {
     public text:PIXI.extras.BitmapText;
+
+    get Text():string
+    {
+        if (this.text)
+        {
+            return this.text.text;
+        }
+    }
+
+    set Text(value:string)
+    {
+        if (this.text)
+        {
+            this.text.text = value;
+        }
+    }
+    
 }
 
 export class Menu
 {
 public MenuItems:MenuItem[];
+
+    constructor()
+    {
+        this.MenuItems = [];
+    }
 }
 
 export class Form extends PIXI.Container
