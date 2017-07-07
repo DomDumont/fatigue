@@ -15,7 +15,17 @@ export class Vec2
     }
 }
 
-export class Window extends PIXI.Container
+export class MenuItem
+{
+    public text:PIXI.extras.BitmapText;
+}
+
+export class Menu
+{
+public MenuItems:MenuItem[];
+}
+
+export class Form extends PIXI.Container
 {
     private titleText:PIXI.extras.BitmapText;
     private storedData:any;
@@ -25,6 +35,7 @@ export class Window extends PIXI.Container
     private closeButton:PIXI.Graphics;
     private windowZone:PIXI.Graphics;
     private tbheight:number;
+    public menu:Menu;
     
     constructor(title:string, size: Vec2)
     {
@@ -115,9 +126,9 @@ export class Window extends PIXI.Container
 
 export class PimGUI extends PIXI.Container
 {
-    public CreateWindow(title:string, size: Vec2):Window
+    public CreateForm(title:string, size: Vec2):Form
     {
-        let tempWindow:Window = new Window(title,size);
+        let tempWindow:Form = new Form(title,size);
         this.addChild(tempWindow);
         return tempWindow;
     }

@@ -81,7 +81,20 @@ public GetNeededResources()
         
         this.addChild(this.bitmapFontText);
 
-        this.gameManager.gui.CreateWindow("Test",new PimGUI.Vec2(300,300));
+        let tempForm =  this.gameManager.gui.CreateForm("Test",new PimGUI.Vec2(300,300));
+        let mainMenu = new PimGUI.Menu();
+        tempForm.menu = mainMenu;
+
+        let menuItem1 = new PimGUI.MenuItem();
+        let menuItem2 = new PimGUI.MenuItem();
+
+        menuItem1.text.text = "File";
+        menuItem2.text.text = "Edit";
+
+        // Add two MenuItem objects to the MainMenu.
+        mainMenu.MenuItems.push(menuItem1);
+        mainMenu.MenuItems.push(menuItem2);
+
 
         this.tileSet = new TileSet(PIXI.loader.resources[img_zelda1].texture.baseTexture,32,32);
         this.tileMap = new TileMap();        
