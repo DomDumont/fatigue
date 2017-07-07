@@ -108,7 +108,7 @@ export class Form extends PIXI.Container
         this.titleBar.endFill();
         this.titleBar.x = 0;
         this.titleBar.y = 0;
-        this.titleBar.alpha = 0.5;
+        this.titleBar.alpha = 1;
         
         this.titleBar.interactive = true;
         this.addChild(this.titleBar);
