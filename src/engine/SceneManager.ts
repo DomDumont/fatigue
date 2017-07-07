@@ -32,7 +32,7 @@ export class SceneManager
 
     
 
-    public create(width: number, height: number)
+    public Create(width: number, height: number, color:number)
     {
         if (this.renderer) 
             {
@@ -40,7 +40,7 @@ export class SceneManager
             }
 
         this.renderer = PIXI.autoDetectRenderer(width, height);
-        (this.renderer as any).backgroundColor = 0xAAAAAA;
+        (this.renderer as any).backgroundColor = color;
         document.body.appendChild(this.renderer.view);
 
     

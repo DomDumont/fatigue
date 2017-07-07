@@ -44,17 +44,17 @@ export class MenuItem  extends PIXI.Container
 
 export class Menu extends PIXI.Container
 {
-    public MenuItems:MenuItem[];
+    private menuItems:MenuItem[];
 
     constructor()
     {
         super();
-        this.MenuItems = [];
+        this.menuItems = [];
     }
 
-    public Add(item:MenuItem)
+    public AddItem(item:MenuItem)
     {
-        this.MenuItems.push(item);
+        this.menuItems.push(item);
         this.addChild(item);
     }
 }
@@ -69,7 +69,7 @@ export class Form extends PIXI.Container
     private closeButton:PIXI.Graphics;
     private windowZone:PIXI.Graphics;
     private tbheight:number;
-    public menu:Menu;
+    private menu:Menu;
 
     public set Menu(value:Menu)
     {

@@ -83,7 +83,6 @@ public GetNeededResources()
 
         let tempForm =  this.gameManager.gui.CreateForm("Test",new PimGUI.Vec2(300,300));
         let mainMenu = new PimGUI.Menu();
-        tempForm.menu = mainMenu;
 
         let menuItem1 = new PimGUI.MenuItem();
         let menuItem2 = new PimGUI.MenuItem();
@@ -92,8 +91,10 @@ public GetNeededResources()
         menuItem2.Text = "Edit";
 
         // Add two MenuItem objects to the MainMenu.
-        mainMenu.MenuItems.push(menuItem1);
-        mainMenu.MenuItems.push(menuItem2);
+        mainMenu.AddItem(menuItem1);
+        mainMenu.AddItem(menuItem2);
+
+        tempForm.Menu = mainMenu;
 
 
         this.tileSet = new TileSet(PIXI.loader.resources[img_zelda1].texture.baseTexture,32,32);
