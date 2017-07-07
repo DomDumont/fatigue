@@ -102,15 +102,16 @@ public GetNeededResources()
         this.tileMap.tileSet = this.tileSet;
         this.tileMap.scaleX = 1;
         this.tileMap.scaleY = 1;
-        this.tileMap.SetData(0,0,10);
-        this.tileMap.SetData(0,1,10);
-        this.tileMap.SetData(0,2,11);
-        this.tileMap.SetData(1,0,20);
-        this.tileMap.SetData(1,1,21);
-        this.tileMap.SetData(1,2,22);
+        for (var i=0;i<20;i++)
+            {
+            for (var j=0;j<20;j++)
+                {
+                this.tileMap.SetData(i,j,Math.floor(Math.random() * 4) + 0  );            
+                }
+            }
 
-        this.tileMap.position.x =450;
-        this.tileMap.position.y = 450;     
+        this.tileMap.position.x =50;
+        this.tileMap.position.y = 50;     
         
         this.addChild(this.tileMap);
 

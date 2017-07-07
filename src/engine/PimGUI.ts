@@ -24,7 +24,7 @@ export class MenuItem  extends PIXI.Container
         super();
         this.text = new PIXI.extras.BitmapText('TEMPORARY', {font: "ProggyClean", align: "right"});
         this.frame = new PIXI.Graphics();
-        this.frame.drawRect(0, 0, this.text.width + 10, this.text.height + 10);
+        this.frame.drawRect(0, 0, this.text.width + 3, this.text.height + 3);
         this.frame.addChild(this.text);
         this.frame.interactive = true;
         this.frame.buttonMode = true;
