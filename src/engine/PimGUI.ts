@@ -23,6 +23,7 @@ export class MenuItem  extends PIXI.Container
     {
         super();
         this.text = new PIXI.extras.BitmapText('', {font: "ProggyClean", align: "right"});
+        this.addChild(this.text);
     }
     get Text():string
     {
