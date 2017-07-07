@@ -18,12 +18,17 @@ export class Vec2
 export class MenuItem  extends PIXI.Container
 {
     public text:PIXI.extras.BitmapText;
-
+    private frame:PIXI.Graphics;
     constructor()
     {
         super();
-        this.text = new PIXI.extras.BitmapText('', {font: "ProggyClean", align: "right"});
-        this.addChild(this.text);
+        this.text = new PIXI.extras.BitmapText('TEMPORARY', {font: "ProggyClean", align: "right"});
+        this.frame = new PIXI.Graphics();
+        this.frame.drawRect(0, 0, this.text.width + 10, this.text.height + 10);
+        this.frame.addChild(this.text);
+        this.frame.interactive = true;
+        this.frame.buttonMode = true;
+        this.addChild(this.frame);
     }
     get Text():string
     {
@@ -46,16 +51,19 @@ export class MenuItem  extends PIXI.Container
 export class Menu extends PIXI.Container
 {
     private menuItems:MenuItem[];
-
+    private offsetX:number;
     constructor()
     {
         super();
         this.menuItems = [];
+        this.offsetX = 0;
     }
 
     public AddItem(item:MenuItem)
     {
         this.menuItems.push(item);
+        item.position.x = this.offsetX;
+        this.offsetX += item.width;
         this.addChild(item);
     }
 }
