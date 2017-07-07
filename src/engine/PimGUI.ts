@@ -15,10 +15,15 @@ export class Vec2
     }
 }
 
-export class MenuItem
+export class MenuItem  extends PIXI.Container
 {
     public text:PIXI.extras.BitmapText;
 
+    constructor()
+    {
+        super();
+        this.text = new PIXI.extras.BitmapText('', {font: "ProggyClean", align: "right"});
+    }
     get Text():string
     {
         if (this.text)
@@ -37,13 +42,20 @@ export class MenuItem
     
 }
 
-export class Menu
+export class Menu extends PIXI.Container
 {
-public MenuItems:MenuItem[];
+    public MenuItems:MenuItem[];
 
     constructor()
     {
+        super();
         this.MenuItems = [];
+    }
+
+    public Add(item:MenuItem)
+    {
+        this.MenuItems.push(item);
+        this.addChild(item);
     }
 }
 
@@ -58,6 +70,22 @@ export class Form extends PIXI.Container
     private windowZone:PIXI.Graphics;
     private tbheight:number;
     public menu:Menu;
+
+    public set Menu(value:Menu)
+    {
+        if (this.menu)
+        {
+            // remove old menu
+            this.removeChild(this.menu);
+        }
+        this.menu = value;
+        this.addChild(this.menu);
+    }
+
+    public get Menu()
+    {
+        return this.menu;
+    }
     
     constructor(title:string, size: Vec2)
     {
