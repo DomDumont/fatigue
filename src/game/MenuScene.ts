@@ -83,7 +83,7 @@ public GetNeededResources()
 
         this.gameManager.gui.CreateWindow("Test",new PimGUI.Vec2(300,300));
 
-        this.tileSet = new TileSet(PIXI.loader.resources[img_zelda1].texture,32,32);
+        this.tileSet = new TileSet(PIXI.loader.resources[img_zelda1].texture.baseTexture,32,32);
         this.tileMap = new TileMap();        
         this.tileMap.tileSet = this.tileSet;
         this.tileMap.SetData(0,0,10);
