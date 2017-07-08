@@ -5,44 +5,48 @@ export class TileMap extends PIXI.Container
     public tileSet:TileSet;
     public sprites:PIXI.Sprite[];
 
-    public sizeX:number;
-    public sizeY:number;
-
-    public scaleX:number;
-    public scaleY:number;
 
     private myCursor:PIXI.Graphics;
-    
 
-    constructor()
+    private tileSize:number;    
+
+    constructor(_tileSize:number)
     {
         super();
-        this.scaleX = 1;
-        this.scaleY = 1;
+
+        this.tileSize = _tileSize;
 
         this.interactive = true;
         this.on("mousemove",this.OnMouseMove);
         
         this.myCursor = new PIXI.Graphics();
-        this.myCursor.drawRect(0,0,32,32);
+        this.myCursor.lineStyle(2, 0xFF00FF, 1);
+        this.myCursor.beginFill(0, 0);
+        this.myCursor.drawRect(0,0,this.tileSize,this.tileSize);
+        this.myCursor.endFill();
+        this.myCursor.pivot.x = this.tileSize / 2;
+        this.myCursor.pivot.y = this.tileSize / 2;
         
         this.addChild(this.myCursor);
     }
 
     public OnMouseMove = (event) =>
     {
-    var mousePosition = event.data.getLocalPosition(this);
+    var mousePosition:PIXI.Point = event.data.getLocalPosition(this);
+    // now snap to grid
+    mousePosition.x = Math.floor(mousePosition.x / this.tileSize) * this.tileSize;
+    mousePosition.y = Math.floor(mousePosition.y / this.tileSize) * this.tileSize;
     this.myCursor.position = mousePosition;
     }
 
     public SetData(x:number,y:number,spriteIndex:number)
     {
         let tempSprite =  this.tileSet.CreateSprite(spriteIndex);
-        tempSprite.position.x = x *  this.tileSet.sizeX;
-        tempSprite.position.y = y *  this.tileSet.sizeY;
-        tempSprite.scale.x = this.scaleX;
-        tempSprite.scale.y = this.scaleY;
-        this.addChild(tempSprite);
+        tempSprite.position.x = x *  this.tileSize;
+        tempSprite.position.y = y *  this.tileSize;
+        tempSprite.anchor.x = 0.5;
+        tempSprite.anchor.y = 0.5;
+        this.addChildAt(tempSprite,0);
         
     }
 }

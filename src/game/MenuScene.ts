@@ -100,10 +100,8 @@ public GetNeededResources()
 
 
         this.tileSet = new TileSet(PIXI.loader.resources[img_zelda1].texture.baseTexture,32,32);
-        this.tileMap = new TileMap();        
+        this.tileMap = new TileMap(32);        
         this.tileMap.tileSet = this.tileSet;
-        this.tileMap.scaleX = 1;
-        this.tileMap.scaleY = 1;
         for (var i=0;i<20;i++)
             {
             for (var j=0;j<20;j++)
