@@ -10,56 +10,66 @@ let img_zelda1: any = require("../public/data/images/zelda1.png");
 export class MenuScene extends Scene
 {
 
-private  mySPrite: PIXI.Sprite;
-private bitmapFontText:PIXI.extras.BitmapText;
+    // Variables
 
-private tileSet:TileSet;
-private tileMap:TileMap;
+    private  mySPrite       : PIXI.Sprite;
+    private bitmapFontText  :PIXI.extras.BitmapText;
+
+    private tileSet         :TileSet;
+    private tileMap         :TileMap;
+
+    private mainMenu        :PimGUI.Menu;
+    private fileMenuItem    :PimGUI.MenuItem;
+    private editMenuItem    :PimGUI.MenuItem;
+    private openMenuItem    :PimGUI.MenuItem;
+    private closeMenuItem   :PimGUI.MenuItem;
   
-constructor()
-    {
-    super();
-        
     
-    /*
-    var graphics = new PIXI.Graphics();
-        // set a fill and a line style again and draw a rectangle
-    graphics.lineStyle(2, 0x0000FF, 1);
-    graphics.beginFill(0xFF700B, 1);
-    graphics.drawRect(50, 250, 120, 120);
-
-    // draw a rounded rectangle
-    graphics.lineStyle(2, 0xFF00FF, 1);
-    graphics.beginFill(0xFF00BB, 0.25);
-    graphics.drawRoundedRect(200, 250, 200, 50, 15);
-        graphics.endFill();
-    
-        this.addChild(graphics);
-    */
-    
-
-
-    } // constructor
-
-
-
-public GetNeededResources()
-{
-    return [img_bunny,
-            img_zelda1,
-            "../data/fonts/Proggy.xml"
-            ]
-}
- public Update()
-    {
-    super.Update();    
-    if (this.mySPrite)    
+    constructor()
         {
-        this.mySPrite.rotation += 0.1;
-        this.bitmapFontText.text = 'rotation = '+ this.mySPrite.rotation;
-        }
-    };
+        super();    
+        } // constructor
 
+
+    
+    public GetNeededResources()
+        {
+        return [img_bunny,
+                img_zelda1,
+                "../data/fonts/Proggy.xml"
+                ]
+        }
+
+    public Update()
+        {
+        super.Update();    
+        if (this.mySPrite)    
+            {
+            this.mySPrite.rotation += 0.1;
+            this.bitmapFontText.text = 'rotation = '+ this.mySPrite.rotation;
+            }
+        };
+
+
+    public InitializeComponent(): void
+    {
+        this.mainMenu = new PimGUI.Menu();
+
+        this.fileMenuItem = new PimGUI.MenuItem();
+        this.editMenuItem = new PimGUI.MenuItem();
+        this.openMenuItem = new PimGUI.MenuItem();
+        this.closeMenuItem = new PimGUI.MenuItem();
+
+        this.fileMenuItem.Text = "File";
+        this.editMenuItem.Text = "Edit";
+        this.openMenuItem.Text = "Open";
+        this.closeMenuItem.Text = "Close";
+
+        // Add two MenuItem objects to the MainMenu.
+        this.mainMenu.AddItem(this.fileMenuItem);
+        this.mainMenu.AddItem(this.editMenuItem);
+
+    }
 
     public OnLoadFinishedCB():void
     {
@@ -84,19 +94,8 @@ public GetNeededResources()
         this.addChild(this.bitmapFontText);
 
         let tempForm =  this.gameManager.gui.CreateForm("Test",new PimGUI.Vec2(300,300));
-        let mainMenu = new PimGUI.Menu();
 
-        let menuItem1 = new PimGUI.MenuItem();
-        let menuItem2 = new PimGUI.MenuItem();
-
-        menuItem1.Text = "File";
-        menuItem2.Text = "Edit";
-
-        // Add two MenuItem objects to the MainMenu.
-        mainMenu.AddItem(menuItem1);
-        mainMenu.AddItem(menuItem2);
-
-        tempForm.Menu = mainMenu;
+        tempForm.Menu = this.mainMenu;
 
 
         this.tileSet = new TileSet(PIXI.loader.resources[img_zelda1].texture.baseTexture,32,32);
