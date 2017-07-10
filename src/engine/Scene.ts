@@ -16,7 +16,6 @@ export abstract class Scene extends PIXI.Container
         .on("progress", this.OnLoadProgress)
         .load(this.OnLoadFinished);
 
-        
     }
 
     

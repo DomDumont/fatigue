@@ -41,8 +41,8 @@ export class SceneManager
 
         this.renderer = PIXI.autoDetectRenderer(width, height);
         (this.renderer as any).backgroundColor = color;
-        document.body.appendChild(this.renderer.view);
-
+        //document.body.appendChild(this.renderer.view);
+        document.getElementById('gameContainer').appendChild(this.renderer.view);
     
 
 
@@ -52,7 +52,8 @@ export class SceneManager
         this.stats.dom.style.position = 'absolute';
 		this.stats.dom.style.top = '10px';
         this.stats.dom.style.left = '10px';
-        document.body.appendChild( this.stats.dom );        
+        //document.body.appendChild( this.stats.dom );     
+        document.getElementById('fpsCounter').appendChild( this.stats.dom );      
         return this;
     }
     private  Loop = () => {

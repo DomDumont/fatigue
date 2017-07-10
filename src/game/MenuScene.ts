@@ -73,6 +73,7 @@ export class MenuScene extends Scene
 
     public OnLoadFinishedCB():void
     {
+    this.InitializeComponent();
     //This code will run when the loader has finished loading the image
     this.mySPrite = new PIXI.Sprite(PIXI.loader.resources[img_bunny].texture);
         // center the sprites anchor point
