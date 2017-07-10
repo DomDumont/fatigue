@@ -3,6 +3,7 @@ import * as PimGUI from '../engine/PimGUI';
 import {TileMap} from '../engine/TileMap';
 import {TileSet} from '../engine/TileSet';
 
+
 let img_bunny: any = require("../public/data/images/bunny.png");
 let img_zelda1: any = require("../public/data/images/zelda1.png");
 
@@ -120,6 +121,8 @@ export class MenuScene extends Scene
 
     public OnORC = (event)=>
     {
+        
+        (<any>$('#orc_modal')).modal('show');
         console.log('on orc !!!');
     }
  

@@ -1,4 +1,4 @@
-import * as $ from "jquery";
+
 
 export class UIManager 
 {
@@ -62,7 +62,7 @@ export class UIManager
 </div> 
 
 
-<div class="ui modal">
+<div id="orc_modal" class="ui modal">
   <i class="close icon"></i>
   <div class="header">
     Profile Picture
