@@ -11,6 +11,7 @@
   "author": "DomDom",
   "license": "MIT",
   "dependencies": {
+    "jquery": "^3.2.1",
     "pixi.js": "^4.5.3",
     "stats.js": "^0.17.0"
   },

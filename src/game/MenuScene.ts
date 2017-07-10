@@ -101,6 +101,7 @@ export class MenuScene extends Scene
 
         this.tileSet = new TileSet(PIXI.loader.resources[img_zelda1].texture.baseTexture,32,32);
         this.tileMap = new TileMap(32);        
+        window.addEventListener('orc',this.OnORC);
         this.tileMap.tileSet = this.tileSet;
         for (var i=0;i<20;i++)
             {
@@ -117,5 +118,9 @@ export class MenuScene extends Scene
 
     }
 
+    public OnORC = (event)=>
+    {
+        console.log('on orc !!!');
+    }
  
 }

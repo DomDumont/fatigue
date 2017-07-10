@@ -5,6 +5,7 @@ export class TileMap extends PIXI.Container
     public tileSet:TileSet;
     public sprites:PIXI.Sprite[];
 
+    
 
     private myCursor:PIXI.Graphics;
 
@@ -14,11 +15,14 @@ export class TileMap extends PIXI.Container
     {
         super();
 
+        
         this.tileSize = _tileSize;
 
         this.interactive = true;
         this.on("mousemove",this.OnMouseMove);
-        
+        this.on("rightclick",this.OnRightClick);
+
+
         this.myCursor = new PIXI.Graphics();
         this.myCursor.lineStyle(2, 0xFF00FF, 1);
         this.myCursor.beginFill(0, 0);
@@ -38,6 +42,19 @@ export class TileMap extends PIXI.Container
     mousePosition.y = Math.floor(mousePosition.y / this.tileSize) * this.tileSize;
     this.myCursor.position = mousePosition;
     }
+
+    public OnRightClick = (event) =>
+    {
+    var mousePosition:PIXI.Point = event.data.getLocalPosition(this);
+    mousePosition.x = Math.floor(mousePosition.x / this.tileSize) * this.tileSize;
+    mousePosition.y = Math.floor(mousePosition.y / this.tileSize) * this.tileSize;
+    
+    //console.log('right click at pos '+ mousePosition.x + "'"+ mousePosition.y);
+
+    let onRightClickEvent = new CustomEvent("orc", {"detail":{"mousePosition":mousePosition}});        
+    window.dispatchEvent(onRightClickEvent);
+    }
+
 
     public SetData(x:number,y:number,spriteIndex:number)
     {

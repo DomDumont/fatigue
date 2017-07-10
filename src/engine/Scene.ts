@@ -9,6 +9,8 @@ export abstract class Scene extends PIXI.Container
     constructor() 
     {
         super();
+
+        
         this.gameManager = SceneManager.Get();
 
         PIXI.loader
@@ -16,10 +18,10 @@ export abstract class Scene extends PIXI.Container
         .on("progress", this.OnLoadProgress)
         .load(this.OnLoadFinished);
 
+        
     }
 
-    
-
+   
 
     public abstract OnLoadFinishedCB():void;
 
@@ -27,6 +29,8 @@ export abstract class Scene extends PIXI.Container
     {
     console.log("Scene's OnLoadFinished (Empty)");
     this.OnLoadFinishedCB();
+
+    
     }
     public OnLoadProgress = (loader, resource) =>
     {

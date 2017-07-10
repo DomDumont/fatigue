@@ -19,7 +19,9 @@ externals: [
     // Don't bundle pixi.js, assume it'll be included in the HTML via a script
     // tag, and made available in the global variable PIXI.
     {"pixi.js": "PIXI",
-    "stats.js": "Stats"}
+    "stats.js": "Stats",
+    "jquery": "jQuery"
+    }
 ],
 module:{
   rules:[

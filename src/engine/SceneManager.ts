@@ -42,6 +42,7 @@ export class SceneManager
         this.renderer = PIXI.autoDetectRenderer(width, height);
         (this.renderer as any).backgroundColor = color;
         //document.body.appendChild(this.renderer.view);
+        this.DisableContextMenu(this.renderer.view);
         document.getElementById('gameContainer').appendChild(this.renderer.view);
     
 
@@ -56,6 +57,13 @@ export class SceneManager
         document.getElementById('fpsCounter').appendChild( this.stats.dom );      
         return this;
     }
+
+    public DisableContextMenu(canvas) 
+        {
+        canvas.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        });
+}
     private  Loop = () => {
         this.stats.begin();
         requestAnimationFrame(this.Loop);

@@ -1,4 +1,4 @@
-
+import * as $ from "jquery";
 
 export class UIManager 
 {
@@ -26,38 +26,72 @@ export class UIManager
     `
     
 
-  <div class="ui top menu visible">
-    <a class="item">
-      File
-    </a>    
-    <a class="item">
-      File
-    </a>    
-    <a class="item">
-      File
-    </a>      
-    <a class="item">
-      File
-    </a>    
-    <a class="item">
-      File
-    </a>    
-    <a class="item">
-      File
-    </a>          
+  <div class="ui menu">
+  <div class="header item">
+    Our Company
   </div>
+  <a class="item">
+    About Us
+  </a>
+  <a class="item">
+    Jobs
+  </a>
+  <a class="item">
+    Locations
+  </a>
+</div>
 
   <div class="ui two column  grid container">
+  <div class="stretched row">
 <div class="two wide column">  
-<div id="fpsCounter"></div>
-</div>    
-  <div class="column">  
-      <div id="gameContainer"></div>
+
+  <div class="ui segment">
+  coucou
+  </div>
+  <div class="ui segment">  
+  <div id="fpsCounter"></div>
+  </div>
+</div>
+<div class="column">  
+  <div class="ui segment">
+      <div id="gameContainer">
+  </div>
+</div>
       
-  </div>    
+</div>    
+</div> 
+
+
+<div class="ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Profile Picture
+  </div>
+  <div class="image content">
+    <div class="ui medium image">
+      <img src="/images/avatar/large/chris.jpg">
+    </div>
+    <div class="description">
+      <div class="ui header">We've auto-chosen a profile image for you.</div>
+      <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+      <p>Is it okay to use this photo?</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">
+      Nope
+    </div>
+    <div class="ui positive right labeled icon button">
+      Yep, that's me
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
     `;
-    document.getElementById('App').innerHTML =(myPage);
-        
+
+    //document.getElementById('App').innerHTML =(myPage);
+    $("#App")[0].innerHTML =(myPage);    
     }
 /*
 <div class="ui fluid container">
