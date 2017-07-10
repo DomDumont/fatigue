@@ -43,8 +43,8 @@ export class TileMap extends PIXI.Container
     this.myCursor.position = mousePosition;
     }
 
-    public OnRightClick = (event) =>
-    {
+    public OnRightClick = (event : PIXI.interaction.InteractionEvent) =>
+    {    
     var mousePosition:PIXI.Point = event.data.getLocalPosition(this);
     mousePosition.x = Math.floor(mousePosition.x / this.tileSize) * this.tileSize;
     mousePosition.y = Math.floor(mousePosition.y / this.tileSize) * this.tileSize;

@@ -119,9 +119,8 @@ export class MenuScene extends Scene
 
     }
 
-    public OnORC = (event)=>
+    public OnORC = (event:CustomEvent)=>
     {
-        
         (<any>$('#orc_modal')).modal('show');
         console.log('on orc !!!');
     }

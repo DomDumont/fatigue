@@ -63,7 +63,7 @@ export class SceneManager
         canvas.addEventListener('contextmenu', (e) => {
         e.preventDefault();
         });
-}
+        }
     private  Loop = () => {
         this.stats.begin();
         requestAnimationFrame(this.Loop);
