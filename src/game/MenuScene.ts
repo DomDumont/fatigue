@@ -104,6 +104,7 @@ export class MenuScene extends Scene
         this.tileMap = new TileMap(32);        
         window.addEventListener('orc',this.OnORC);
         this.tileMap.tileSet = this.tileSet;
+        /*
         for (var i=0;i<20;i++)
             {
             for (var j=0;j<20;j++)
@@ -111,11 +112,13 @@ export class MenuScene extends Scene
                 this.tileMap.SetData(i,j,Math.floor(Math.random() * 4) + 0  );            
                 }
             }
+        */
 
         this.tileMap.position.x =50;
         this.tileMap.position.y = 50;     
         
         this.addChild(this.tileMap);
+
 
     }
 

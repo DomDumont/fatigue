@@ -1,5 +1,7 @@
 
 
+//event.target.id;
+
 export class UIManager 
 {
     private static instance: UIManager;
@@ -20,13 +22,13 @@ export class UIManager
     
     }   
 
-    public Create()
+    public CreateUI()
     {
     let myPage = 
     `
     
 
-  <div class="ui menu">
+  <div id='MainMenu' class="ui menu">
   <div class="header item">
     Our Company
   </div>
@@ -91,7 +93,12 @@ export class UIManager
     `;
 
     //document.getElementById('App').innerHTML =(myPage);
-    $("#App")[0].innerHTML =(myPage);    
+    $("#App")[0].innerHTML =(myPage);   
+
+            $("#MainMenu .item").click(function(event){
+        console.log("click on " + event.target.innerText);
+        }); 
+
     }
 /*
 <div class="ui fluid container">

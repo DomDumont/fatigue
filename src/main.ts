@@ -5,7 +5,7 @@ import {UIManager} from "./engine/UIManager";
 import { MenuScene } from './game/MenuScene';
 
 
-UIManager.Get().Create();
+UIManager.Get().CreateUI();
  
 SceneManager.Get().Create(800,600,0x3399FF);
 
