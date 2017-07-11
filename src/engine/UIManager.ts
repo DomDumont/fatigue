@@ -1,6 +1,37 @@
 
 
-//event.target.id;
+export class Treeview
+{
+ public Nodes:TreeNode[];
+ public Render():string
+ {
+   let tempString:string;
+
+ tempString = '<div class="ui list">';
+ for (let entry of this.Nodes) 
+    {
+    tempString += '<div class="item">';
+    tempString += entry.Text;
+    tempString += '</div>';
+  }
+  
+  tempString += '</div';
+  return tempString;
+ }
+}
+
+export class TreeNode
+{
+  public Text:string;
+  public Nodes:TreeNode[];  
+ public Render():string
+ {
+   let tempString:string;
+   return tempString;
+ }
+  
+}
+
 
 export class UIManager 
 {
