@@ -1,4 +1,4 @@
-
+let Mustache = require('Mustache') ;
 
 export class Treeview
 {
@@ -16,6 +16,8 @@ export class Treeview
   }
   
   tempString += '</div';
+
+  
   return tempString;
  }
 
@@ -53,31 +55,29 @@ export class UIManager
         return UIManager.instance;
     }
     
- private constructor()
+    private constructor()
+        {
+        
+        }   
+
+
+    public LoadMenu()
     {
+      $.get('data/templates/menu.lol', function(template) 
+        {
+        var rendered = Mustache.render(template, {name: "MyMenu", text: "TropFort", items:[{text:'File'},{text:'Edit'}]});
+        $('#TargetMenu').html(rendered);
+        });
+    }
+
     
-    }   
 
     public CreateUI()
     {
     let myPage = 
     `
-    
+    <div id='TargetMenu'> target menu </div>
 
-  <div id='MainMenu' class="ui menu">
-  <div class="header item">
-    Our Company
-  </div>
-  <a class="item">
-    About Us
-  </a>
-  <a class="item">
-    Jobs
-  </a>
-  <a class="item">
-    Locations
-  </a>
-</div>
 
   <div class="ui two column  grid container">
   <div class="stretched row">
@@ -90,10 +90,8 @@ export class UIManager
   <div id="fpsCounter"></div>
   </div>
 </div>
-<div class="column">  
-  <div class="ui segment">
-      <div id="gameContainer">
-  </div>
+<div class="column">    
+      <div id="gameContainer">  
 </div>
       
 </div>    
@@ -128,13 +126,20 @@ export class UIManager
 
     `;
 
+    console.log(Mustache.render('Salut {{name}}',{name : 'John'}));
+
+    
     //document.getElementById('App').innerHTML =(myPage);
     $("#App")[0].innerHTML =(myPage);   
+    this.LoadMenu();
 
-            $("#MainMenu .item").click(function(event){
-        console.log("click on " + event.target.innerText);
-        }); 
+    // Test des clicks du menu
+    $("#MainMenu .item").click(function(event)
+      {
+      console.log("click on " + event.target.innerText);
+      }); 
 
+        
     }
 /*
 <div class="ui fluid container">

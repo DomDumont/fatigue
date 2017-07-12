@@ -12,11 +12,13 @@
   "license": "MIT",
   "dependencies": {
     "jquery": "^3.2.1",
+    "mustache": "^2.3.0",
     "pixi.js": "^4.5.3",
     "stats.js": "^0.17.0"
   },
   "devDependencies": {
     "@types/jquery": "^3.2.6",
+    "@types/mustache": "^0.8.29",
     "@types/node": "^8.0.6",
     "@types/pixi.js": "^4.5.0",
     "@types/stats.js": "^0.16.0",
