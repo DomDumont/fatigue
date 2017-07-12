@@ -1,6 +1,9 @@
 let Mustache = require('Mustache') ;
 
 let lol_menu: any = require("../public/data/templates/menu.lol");
+let lol_image: any = require("../public/data/templates/image.lol");
+
+let img_zelda1: any = require("../public/data/images/zelda1.png");
 
 export class Treeview
 {
@@ -63,6 +66,16 @@ export class UIManager
         }   
 
 
+    public LoadImage()
+        {
+          $.get(lol_image, function(template) 
+            {
+            var rendered = Mustache.render(template, {imageLink: img_zelda1 });
+            $('#TargetImage').html(rendered);
+            });
+        }
+
+
     public LoadMenu()
     {
       $.get(lol_menu, function(template) 
@@ -83,14 +96,18 @@ export class UIManager
 
   <div class="ui two column  grid container">
   <div class="stretched row">
-<div class="two wide column">  
+
+  <div class="four wide column">  
 
   <div class="ui segment">
-  coucou
+  <div id='TargetImage'> target image </div>
   </div>
+
+
   <div class="ui segment">  
   <div id='TargetTreeview'> target treeview </div>
   </div>
+
   <div class="ui segment">  
   <div id="fpsCounter"></div>
   </div>
@@ -137,7 +154,10 @@ export class UIManager
     //document.getElementById('App').innerHTML =(myPage);
     $("#App")[0].innerHTML =(myPage);   
     this.LoadMenu();
+    this.LoadImage();
 
+    //(<any>$("#TargetMenu")).transition('fly down')
+;
     let testTreeview = new Treeview();
     
 
