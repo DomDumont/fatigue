@@ -87,6 +87,9 @@ export class UIManager
   coucou
   </div>
   <div class="ui segment">  
+  <div id='TargetTreeview'> target treeview </div>
+  </div>
+  <div class="ui segment">  
   <div id="fpsCounter"></div>
   </div>
 </div>
@@ -132,6 +135,9 @@ export class UIManager
     //document.getElementById('App').innerHTML =(myPage);
     $("#App")[0].innerHTML =(myPage);   
     this.LoadMenu();
+
+    let testTreeview = new Treeview();
+    
 
     // Test des clicks du menu
     $("#MainMenu .item").click(function(event)
