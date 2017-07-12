@@ -1,5 +1,7 @@
 let Mustache = require('Mustache') ;
 
+let lol_menu: any = require("../public/data/templates/menu.lol");
+
 export class Treeview
 {
  public Nodes:TreeNode[];
@@ -63,7 +65,7 @@ export class UIManager
 
     public LoadMenu()
     {
-      $.get('data/templates/menu.lol', function(template) 
+      $.get(lol_menu, function(template) 
         {
         var rendered = Mustache.render(template, {name: "MyMenu", text: "TropFort", items:[{text:'File'},{text:'Edit'}]});
         $('#TargetMenu').html(rendered);
