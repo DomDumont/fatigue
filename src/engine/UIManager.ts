@@ -11,12 +11,17 @@ export class Treeview
  for (let entry of this.Nodes) 
     {
     tempString += '<div class="item">';
-    tempString += entry.Text;
+    tempString += entry.Render();
     tempString += '</div>';
   }
   
   tempString += '</div';
   return tempString;
+ }
+
+ public Show()
+ {
+   
  }
 }
 
