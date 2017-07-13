@@ -8,6 +8,11 @@ export default class Form1 extends PIXIForms.Form {
     }
 
     private InitializeComponent(): void {
-        // todo
+     this.Load.Add(this.Form1_Load);
+    }
+
+    public Form1_Load()
+    {
+
     }
 }

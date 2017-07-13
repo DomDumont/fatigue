@@ -9,3 +9,16 @@ export class Size {
         this.y = y;
     }
 }
+
+interface EventHandler {
+    ( error: Error, result?: number ) : void;
+}
+
+export class Event
+{
+    public Add( newHandler:EventHandler)
+    {
+
+    }
+
+}
