@@ -2,20 +2,10 @@
 
 import {SceneManager} from "./engine/SceneManager";
 import {UIManager} from "./engine/UIManager";
-import { MenuScene } from './game/MenuScene';
+import { MenuScene } from "./game/MenuScene";
 
+import Application from "./engine/PIXIForms/Application";
+import Form1 from "./game/Form1";
 
-$( document ).ready
-(
-function() 
-    {
-    UIManager.Get().CreateUI(); 
-    SceneManager.Get().Create(800,600,0x3399FF);
-
-    SceneManager.Get().CreateScene("Menu",MenuScene);
-
-    SceneManager.Get().GoToScene('Menu');
-
-    }
-);
+Application.Run(new Form1());
 
