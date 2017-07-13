@@ -1,5 +1,9 @@
+import {Size} from "./Utils";
 
-export default class Form {
+export class Form 
+{
 
+    public MinimumSize: Size;
+    public MaximumSize: Size;
 }
 

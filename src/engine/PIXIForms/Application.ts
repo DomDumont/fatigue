@@ -1,4 +1,4 @@
-import Form from "./Form";
+import {Form} from "./Form";
 export default class Application {
 
     public static Run(mainForm: Form): void {
