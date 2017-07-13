@@ -13,6 +13,6 @@ export default class Form1 extends PIXIForms.Form {
 
     public Form1_Load()
     {
-
+        console.log("Form1_Load");
     }
 }

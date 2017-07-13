@@ -10,6 +10,7 @@ export class Form
 
     constructor() {
         this.Load = new Event();
+        this.Load.Raise(this,null);
     }
 }
 
