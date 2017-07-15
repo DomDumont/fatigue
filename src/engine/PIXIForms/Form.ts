@@ -2,14 +2,17 @@ import * as PIXI from "pixi.js";
 
 import {Size} from "./Utils";
 import {Event} from "./Utils";
+import {EventHandler} from "./Utils";
+import {FormClosingEventHandler} from "./Utils";
+import {FormClosingEventArgs} from "./Utils";
 
 export class Form 
 {
 
     public MinimumSize: Size;
     public MaximumSize: Size;
-    public Load: Event;
-    public FormClosing: Event;
+    public Load: Event<EventHandler>;
+    public FormClosing: Event<FormClosingEventHandler>;
 
     constructor() {
         this.Load = new Event();
@@ -32,16 +35,21 @@ export class Form
 
     public OnBeforeUnload = (e) => {
         console.log("Scene's OnBeforeUnload (Empty)");
-        this.FormClosing.Raise(this,null);
-        var e = e || window.event;
+        let newArg = new FormClosingEventArgs();
+        this.FormClosing.Raise(this,newArg);
 
-        //IE & Firefox
-        if (e) {
-            e.returnValue = 'Are you sure?';
-        }
+        if (newArg.Cancel === true)
+            {
+            var e = e || window.event;
 
-        // For Safari
-        return 'Are you sure?';
+            //IE & Firefox
+            if (e) {
+                e.returnValue = 'Are you sure?';
+            }
+
+            // For Safari
+            return 'Are you sure?';
+            }
     }
     
     public OnLoadFinished = () => {

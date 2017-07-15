@@ -10,34 +10,53 @@ export class Size {
     }
 }
 
-export class EventArg{
+
+export class EventArgs{
 
 }
-interface EventHandler {
-    ( sender: object , arg: EventArg ) : void;
-}
 
-export class Event
+export class CancelEventArgs extends EventArgs
 {
-    private handlers : EventHandler [];
+public Cancel:boolean;
+}
+
+export class FormClosingEventArgs extends CancelEventArgs
+{
+    public ClosingReason:string;
+}
+
+
+export interface EventHandler {
+    ( sender: object , arg: EventArgs ) : void;
+}
+
+export interface FormClosingEventHandler {
+    ( sender: object , arg: FormClosingEventArgs ) : void;
+}
+
+
+
+export class Event<T>
+{
+    private handlers : T [];
 
     constructor() {
 		this.handlers = [];
 	}
 
-    public Add( newHandler:EventHandler)
+    public Add( newHandler:T)
     {
     this.handlers.push(newHandler);
     }
-    public Remove (handler : EventHandler) : void {
+    public Remove (handler : T) : void {
 		this.handlers.splice(this.handlers.indexOf(handler), 1);
 	}
 
-    public Raise (sender: object , arg: EventArg) : void 
+    public Raise (sender: object , arg: EventArgs) : void 
     {
 
-		this.handlers.forEach((handler : EventHandler)=> {
-			handler(sender,arg);
+		this.handlers.forEach((handler : T)=> {
+            (<any>handler)(sender,arg);            
 		});
 	}
 
