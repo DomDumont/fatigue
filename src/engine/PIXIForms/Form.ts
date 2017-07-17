@@ -4,15 +4,19 @@ import {Event} from "./Utils";
 import {EventHandler} from "./Utils";
 import {FormClosingEventHandler} from "./Utils";
 import {FormClosingEventArgs} from "./Utils";
+import {Control} from "./Controls";
+import {MenuStrip} from "./Menus";
 
-export class Form 
+export class Form extends Control
 {
 
     
     public Load: Event<EventHandler>;
     public FormClosing: Event<FormClosingEventHandler>;
+    public MainMenuStrip:MenuStrip;
 
     constructor() {
+        super();
         this.Load = new Event();
         this.FormClosing = new Event();
 
