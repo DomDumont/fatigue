@@ -1,6 +1,5 @@
 import * as PIXI from "pixi.js";
 
-import {Size} from "./Utils";
 import {Event} from "./Utils";
 import {EventHandler} from "./Utils";
 import {FormClosingEventHandler} from "./Utils";
@@ -9,8 +8,7 @@ import {FormClosingEventArgs} from "./Utils";
 export class Form 
 {
 
-    public MinimumSize: Size;
-    public MaximumSize: Size;
+    
     public Load: Event<EventHandler>;
     public FormClosing: Event<FormClosingEventHandler>;
 
