@@ -30,6 +30,9 @@ export default class Form1 extends PIXIForms.Form {
     this.menuStrip1.SuspendLayout();
     this.SuspendLayout();
     
+    this.menuStrip1.AddItem(this.fileToolStripMenuItem);
+    this.menuStrip1.AddItem(this.editToolStripMenuItem);
+            
     this.menuStrip1.Location = new PIXIForms.Point(0, 0);
     this.menuStrip1.Name = "menuStrip1";
     this.menuStrip1.Size = new PIXIForms.Size(284, 24);

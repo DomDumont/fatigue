@@ -12,10 +12,20 @@ export class ToolStripMenuItem extends Control
         this.DropDownItems = new Array();
     }
 
+    public PerformLayout()
+    {
+    let currentHeight:number = 0;        
+    for( var element of this.DropDownItems)
+        {
+        element.Location.x = this.Location.x;
+        element.Location.y = this.Location.y + currentHeight;
+        currentHeight += element.Size.y;
+        }
+    }
+
+    
     public AddDropdownItem(item:ToolStripMenuItem):void {
         item.Parent = this;
-        item.Location.x = this.Location.x;
-        item.Location.y = this.DropDownItems.length * 50;
         this.Controls.push(item);
         this.DropDownItems.push(item);
     }
@@ -31,4 +41,29 @@ export class ToolStripMenuItem extends Control
 export class MenuStrip extends Control
 {
     public items: ToolStripMenuItem[];
+    
+
+   constructor()
+    {
+        super();
+        this.items = new Array();
+        
+    }
+
+    public PerformLayout()
+    {
+    let currentWidth:number = 0;        
+    for( var element of this.items)
+        {
+        element.Location.x = this.Location.x + currentWidth;
+        element.Location.y = this.Location.y;
+        currentWidth += element.Size.x;
+        }
+    }
+    public AddItem(item:ToolStripMenuItem):void {
+        item.Parent = this;
+        this.Controls.push(item);
+        this.items.push(item);
+    }
+    
 }
