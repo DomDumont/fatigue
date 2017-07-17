@@ -4,7 +4,7 @@ import {Control} from "./Controls"
 export class ToolStripMenuItem extends Control
 {
     public DropDownItems: ToolStripMenuItem[];
-
+    
     constructor()
     {
         super();

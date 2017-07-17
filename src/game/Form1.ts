@@ -19,6 +19,7 @@ export default class Form1 extends PIXIForms.Form {
 
     private InitializeComponent(): void {
 
+    console.log("InitializeComponent");
     this.menuStrip1 = new PIXIForms.MenuStrip();
     this.fileToolStripMenuItem = new PIXIForms.ToolStripMenuItem();
     this.openToolStripMenuItem = new PIXIForms.ToolStripMenuItem();
