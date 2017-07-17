@@ -2,7 +2,7 @@
 import {Size} from "./Utils";
 import {Point} from "./Utils";
 
-export class Control
+export class Control extends PIXI.Container
 {
     public Size: Size;
     public MinimumSize: Size;
@@ -10,11 +10,22 @@ export class Control
     public Location: Point;
     public Name: string;
     public TabIndex: number;
-    public Text: string;
+    private _text: string;
+    private _pixiText : PIXI.extras.BitmapText;
     public Controls:Control[];
 
+    set Text(value:string){
+    this._text = value;
+    this._pixiText = new PIXI.extras.BitmapText(this.Text, { font: "ProggyClean", align: "right" });
+    this.addChild(this._pixiText);
+    }
+
+    get Text():string{
+        return this._text;
+    }
     constructor()
     {
+        super();
         this.Controls = new Array();
     }
 

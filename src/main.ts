@@ -7,8 +7,13 @@ import { MenuScene } from "./game/MenuScene";
 import Application from "./engine/PIXIForms/Application";
 import Form1 from "./game/Form1";
 
-$(document).ready(() => {
+//$(document).ready(() => {
+//    Application.Run(new Form1());
+//});
+
+Application.Ready(() => {
     Application.Run(new Form1());
 });
+
 
 

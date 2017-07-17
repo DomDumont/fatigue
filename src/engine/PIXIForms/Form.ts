@@ -31,7 +31,7 @@ export class Form extends Control
 
       public GetNeededResources():any[] {
         return [
-            "../data/fonts/Proggy.xml"
+            //"../data/fonts/Proggy.xml"
         ];
     }
 
