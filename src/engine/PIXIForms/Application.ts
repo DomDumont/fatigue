@@ -12,7 +12,7 @@ export default class Application {
     (Application.renderer as any).backgroundColor = rototo;
     //Application.DisableContextMenu(Application.renderer.view);
     document.getElementById("PIXIForms").appendChild(Application.renderer.view);
-    requestAnimationFrame(Application.Loop);
+    
 
     Application.stats.showPanel(0); // 0: fps, 1: ms, 2: mb, 3+: custom
     Application.stats.dom.style.position = "absolute";
@@ -25,6 +25,7 @@ export default class Application {
     }
     public static Run(mainForm: Form): void {
         Application.CurrentForm = mainForm;
+        requestAnimationFrame(Application.Loop);
     }    
 
     public static Ready(callback:any)

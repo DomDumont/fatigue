@@ -11,25 +11,21 @@ export class Control extends PIXI.Container
     public Name: string;
     public TabIndex: number;
     private _text: string;
-    private _pixiText : PIXI.extras.BitmapText;
     private _pixiBB: PIXI.Graphics;
     public Controls:Control[];
     public Parent: Control;
 
+
+
     set Size(value:Size) {
         this._size = value;
-        this._pixiBB = new PIXI.Graphics();
-        this._pixiBB.lineStyle(4, 0x99CCFF, 1);
-        this._pixiBB.drawRect(0, 0, this.Size.x, this.Size.y);        
-        this.addChild(this._pixiBB);
+     
     }
     get Size():Size {
         return this._size;
     }
     set Text(value:string){
     this._text = value;
-    this._pixiText = new PIXI.extras.BitmapText(this.Text, { font: "ProggyClean", align: "right" });
-    //this.addChild(this._pixiText);
     }
 
     get Text():string{
@@ -39,9 +35,9 @@ export class Control extends PIXI.Container
     {
         super();
         this.Controls = new Array();
+        this.Location = new Point(0,0);
+        this.Size = new Size(0,0);
 
-
-  
     }
 
     public SuspendLayout()
@@ -51,7 +47,14 @@ export class Control extends PIXI.Container
 
     public PerformLayout()
     {
+        this._pixiBB = new PIXI.Graphics();
+        this._pixiBB.lineStyle(4, 0x99CCFF, 1);
+        this._pixiBB.drawRect(this.Location.x, this.Location.y, this.Size.x, this.Size.y);        
+        //this.addChild(this._pixiBB);
+
+        
         this.Controls.forEach(element => {
+            element.Render();
             this.addChild(element);
         });
     }
@@ -59,5 +62,9 @@ export class Control extends PIXI.Container
     public ResumeLayout(performLayout:boolean)
     {
 
+    }
+
+    public Render(){
+        
     }
 }
