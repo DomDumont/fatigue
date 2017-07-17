@@ -25,6 +25,7 @@
     "awesome-typescript-loader": "^3.2.1",
     "file-loader": "^0.11.2",
     "fs-extra": "^3.0.1",
+    "tslint": "^5.5.0",
     "typescript": "^2.4.1",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.5.0"
