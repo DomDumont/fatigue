@@ -13,7 +13,7 @@ export class Form extends Control
     
     public Load: Event<EventHandler>;
     public FormClosing: Event<FormClosingEventHandler>;
-    public MainMenuStrip:MenuStrip;
+    private _MainMenuStrip:MenuStrip;
 
     constructor() {
         super();
@@ -27,6 +27,11 @@ export class Form extends Control
 
         $(window).on("beforeunload",this.OnBeforeUnload);
         
+    }
+
+    set MainMenuStrip(value:MenuStrip){
+        this._MainMenuStrip = value;
+        this.addChild(this._MainMenuStrip);
     }
 
       public GetNeededResources():any[] {

@@ -62,4 +62,4 @@ export default class Application {
 
 }
 
-Application.Initialize(800,600,0x000000);
+Application.Initialize(800,600,0xaabbcc);

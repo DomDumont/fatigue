@@ -103,6 +103,7 @@ export default class Form1 extends PIXIForms.Form {
     public Form1_FormClosing(o:object, args:FormClosingEventArgs)
     {
         console.log("Form1_FormClosing");
+        // If you want to prevent the browser from closing, uncomment this line
         //args.Cancel = true;
     }
 }
