@@ -71,13 +71,18 @@ export class Form extends Control {
         // console.log("loading: " + resource.name);
     }
 
+    /**
+     * Override default Render function
+     * do not render the bounding box
+     * @memberof Form
+     */
     public Render() {
 
     // super.Render();
 
     for (const element of this.Controls)
         {
-            element.Render(true);
+            element.Render();
             this.addChild(element);
         }
 

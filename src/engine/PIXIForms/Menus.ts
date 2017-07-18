@@ -12,6 +12,11 @@ export class ToolStripMenuItem extends Control {
         this.opened = false;
     }
 
+    /**
+     * Compute the location of each sub items
+     *
+     * @memberof ToolStripMenuItem
+     */
     public PerformLayout() {
     let currentHeight: number = this.Size.y;
     for ( const element of this.DropDownItems)
@@ -35,8 +40,10 @@ export class ToolStripMenuItem extends Control {
     }
 
     public Render() {
+
         this.removeChildren();
-        super.Render(true);
+        const tempItem = this.Parent as ToolStripMenuItem;
+        if (tempItem.opened === true) {
         this.pixiText = new PIXI.extras.BitmapText(this.Text, { font: "ProggyClean", align: "right" });
         this.pixiText.position.x = this.Location.x;
         this.pixiText.position.y = this.Location.y;
@@ -46,10 +53,14 @@ export class ToolStripMenuItem extends Control {
         this.buttonMode = true;
         this.on("pointerdown", this.onDragStart);
         this.on("pointerup", this.onDragEnd);
+        }
+
+        super.Render();
     }
 
     private onDragStart = (event) => {
         // coucou
+        this.opened = !this.opened;
     }
     private onDragEnd = () => {
         // coucou
@@ -65,11 +76,11 @@ export class ToolStripMenuItem extends Control {
  */
 export class MenuStrip extends Control {
     public items: ToolStripMenuItem[];
-
+    public opened: boolean;
    constructor() {
         super();
         this.items = new Array();
-
+        this.opened = true;
     }
 
     public PerformLayout() {
