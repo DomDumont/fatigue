@@ -11,7 +11,7 @@ export class ToolStripMenuItem extends Control {
 
     public PerformLayout() {
     let currentHeight: number = 0;
-    for ( var element of this.DropDownItems)
+    for ( const element of this.DropDownItems)
         {
         element.Location.x = this.Location.x;
         element.Location.y = this.Location.y + currentHeight;
@@ -44,7 +44,7 @@ export class MenuStrip extends Control {
 
     public PerformLayout() {
     let currentWidth: number = 0;
-    for ( var element of this.items)
+    for ( const element of this.items)
         {
         element.Location.x = this.Location.x + currentWidth;
         element.Location.y = this.Location.y;
