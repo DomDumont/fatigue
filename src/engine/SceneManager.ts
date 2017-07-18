@@ -1,16 +1,11 @@
 import * as PIXI from "pixi.js";
-import { Scene } from "./Scene";
-import * as PimGUI from "./PimGUI";
 import "stats.js";
-
+import * as PimGUI from "./PimGUI";
+import { Scene } from "./Scene";
 
 export class SceneManager {
 
-    private static instance: SceneManager;
-    private stats = new Stats();
-    public gui: PimGUI.PimGUI;
-
-    static Get():SceneManager {
+    public static Get(): SceneManager {
         if (!SceneManager.instance) {
             SceneManager.instance = new SceneManager();
             // ... any one time initialization goes here ...
@@ -18,17 +13,21 @@ export class SceneManager {
         return SceneManager.instance;
     }
 
+    private static instance: SceneManager;
+
+    public gui: PimGUI.PimGUI;
+
+    public currentScene: Scene;
+    public renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
+
+    private stats = new Stats();
+    private scenes: any = {}; // should be hashmap but a JS object is fine too :)
+
     private constructor() {
         this.gui = new PimGUI.PimGUI();
     }
 
-    private scenes: any = {}; // should be hashmap but a JS object is fine too :)
-    public currentScene: Scene;
-    public renderer: PIXI.WebGLRenderer | PIXI.CanvasRenderer;
-
-
-
-    public Create(width: number, height: number, color: number):SceneManager {
+    public Create(width: number, height: number, color: number): SceneManager {
         if (this.renderer) {
             return this;
         }
@@ -38,8 +37,6 @@ export class SceneManager {
         // document.body.appendChild(this.renderer.view);
         this.DisableContextMenu(this.renderer.view);
         document.getElementById("gameContainer").appendChild(this.renderer.view);
-
-
 
         requestAnimationFrame(this.Loop);
 
@@ -52,26 +49,10 @@ export class SceneManager {
         return this;
     }
 
-    public DisableContextMenu(canvas:any):void {
+    public DisableContextMenu(canvas: any): void {
         canvas.addEventListener("contextmenu", (e) => {
             e.preventDefault();
         });
-    }
-    private Loop = () => {
-        this.stats.begin();
-        requestAnimationFrame(this.Loop);
-
-
-        if (!this.currentScene || this.currentScene.isPaused()) {
-            return;
-        }
-
-
-        this.currentScene.Update();
-        this.renderer.render(this.gui);
-
-
-        this.stats.end();
     }
 
     public CreateScene<A extends Scene>(id: string, construct: new () => A): A {
@@ -79,7 +60,7 @@ export class SceneManager {
             return undefined;
         }
 
-        var scene: A = new construct();
+        const scene: A = new construct();
         scene.gameManager = this;
         this.scenes[id] = scene;
 
@@ -102,4 +83,19 @@ export class SceneManager {
         }
         return false;
     }
+
+    private Loop = () => {
+        this.stats.begin();
+        requestAnimationFrame(this.Loop);
+
+        if (!this.currentScene || this.currentScene.isPaused()) {
+            return;
+        }
+
+        this.currentScene.Update();
+        this.renderer.render(this.gui);
+
+        this.stats.end();
+    }
+
 }
