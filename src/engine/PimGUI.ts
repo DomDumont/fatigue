@@ -1,15 +1,14 @@
+import * as assert from "assert";
 import { SceneManager } from "./SceneManager";
 import * as Utils from "./Utils";
-import * as assert from "assert";
-
 
 export class Vec2 {
     public x: number;
     public y: number;
 
-    constructor(_x: number, _y: number) {
-        this.x = _x;
-        this.y = _y;
+    constructor(x: number, y: number) {
+        this.x = x;
+        this.y = y;
     }
 }
 
@@ -49,7 +48,7 @@ export class Menu extends PIXI.Container {
         this.offsetX = 0;
     }
 
-    public AddItem (item: MenuItem): void {
+    public AddItem(item: MenuItem): void {
         this.menuItems.push(item);
         item.position.x = this.offsetX;
         this.offsetX += item.width;
@@ -77,13 +76,12 @@ export class Form extends PIXI.Container {
         this.addChild(this.menu);
     }
 
-    public get Menu():Menu {
+    public get Menu(): Menu {
         return this.menu;
     }
 
     constructor(title: string, size: Vec2) {
         super();
-
 
         this.titleText = new PIXI.extras.BitmapText(title, { font: "ProggyClean", align: "right" });
 
@@ -116,7 +114,6 @@ export class Form extends PIXI.Container {
 
         this.titleBar.addChild(this.closeButton);
 
-
         this.windowZone = new PIXI.Graphics();
         this.windowZone.lineStyle(4, 0x99CCFF, 1);
         this.windowZone.beginFill(0x000000);
@@ -129,10 +126,6 @@ export class Form extends PIXI.Container {
         this.addChild(this.windowZone);
 
         this.x = 100;
-
-
-
-
 
         this.titleBar.on("pointerdown", this.onDragStart);
         this.titleBar.on("pointerup", this.onDragEnd);
@@ -153,8 +146,7 @@ export class Form extends PIXI.Container {
     }
     private onDragMove = () => {
         if (this.bDragging) {
-            var newPosition: any = this.storedData.getLocalPosition(this.parent);
-
+            const newPosition: any = this.storedData.getLocalPosition(this.parent);
 
             this.x = newPosition.x;
             this.y = newPosition.y;
@@ -165,7 +157,7 @@ export class Form extends PIXI.Container {
 
 export class PimGUI extends PIXI.Container {
     public CreateForm(title: string, size: Vec2): Form {
-        let tempWindow: Form = new Form(title, size);
+        const tempWindow: Form = new Form(title, size);
         this.addChild(tempWindow);
         return tempWindow;
     }

@@ -37,6 +37,15 @@ export class ToolStripMenuItem extends Control {
 
         this.interactive = true;
         this.buttonMode = true;
+        this.on("pointerdown", this.onDragStart);
+        this.on("pointerup", this.onDragEnd);
+    }
+
+    private onDragStart = (event) => {
+        // coucou
+    }
+    private onDragEnd = () => {
+        // coucou
     }
 }
 
