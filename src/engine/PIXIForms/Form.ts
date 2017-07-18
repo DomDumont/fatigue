@@ -71,4 +71,15 @@ export class Form extends Control {
         // console.log("loading: " + resource.name);
     }
 
+    public Render() {
+        // super.Render();
+
+    for (const element of this.Controls)
+        {
+            element.Render();
+            this.addChild(element);
+        }
+
+    }
+
 }
