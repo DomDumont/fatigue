@@ -72,11 +72,12 @@ export class Form extends Control {
     }
 
     public Render() {
-        // super.Render();
+
+    // super.Render();
 
     for (const element of this.Controls)
         {
-            element.Render();
+            element.Render(true);
             this.addChild(element);
         }
 

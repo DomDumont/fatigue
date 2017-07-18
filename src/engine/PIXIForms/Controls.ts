@@ -41,24 +41,26 @@ export class Control extends PIXI.Container {
     }
 
     public PerformLayout() {
-        this.Render();
+        this.Render(true);
     }
 
     public ResumeLayout(performLayout: boolean) {
         // todo
     }
 
-    public Render() {
+    public Render(recursive: boolean) {
 
         this.pixiBB = new PIXI.Graphics();
         this.pixiBB.lineStyle(4, 0x99CCFF, 1);
         this.pixiBB.drawRect(this.Location.x, this.Location.y, this.Size.x, this.Size.y);
         this.addChild(this.pixiBB);
 
+        if (recursive === true) {
         for (const element of this.Controls)
         {
-            element.Render();
+            element.Render(true);
             this.addChild(element);
+        }
         }
     }
 }

@@ -22,6 +22,12 @@ export class ToolStripMenuItem extends Control {
         }
     }
 
+    /**
+     *
+     *
+     * @param {ToolStripMenuItem} item
+     * @memberof ToolStripMenuItem
+     */
     public AddDropdownItem(item: ToolStripMenuItem): void {
         item.Parent = this;
         this.Controls.push(item);
@@ -29,7 +35,8 @@ export class ToolStripMenuItem extends Control {
     }
 
     public Render() {
-        super.Render();
+        this.removeChildren();
+        super.Render(true);
         this.pixiText = new PIXI.extras.BitmapText(this.Text, { font: "ProggyClean", align: "right" });
         this.pixiText.position.x = this.Location.x;
         this.pixiText.position.y = this.Location.y;
@@ -49,6 +56,13 @@ export class ToolStripMenuItem extends Control {
     }
 }
 
+/**
+ *
+ *
+ * @export
+ * @class MenuStrip
+ * @extends {Control}
+ */
 export class MenuStrip extends Control {
     public items: ToolStripMenuItem[];
 
