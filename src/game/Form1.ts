@@ -3,23 +3,32 @@ import {FormClosingEventArgs} from "../engine/PIXIForms/Utils";
 
 export default class Form1 extends PIXIForms.Form {
 
-    private menuStrip1:PIXIForms.MenuStrip;
-    private fileToolStripMenuItem : PIXIForms.ToolStripMenuItem ;
-    private openToolStripMenuItem : PIXIForms.ToolStripMenuItem ;
-    private closeToolStripMenuItem : PIXIForms.ToolStripMenuItem ;
-    private editToolStripMenuItem : PIXIForms.ToolStripMenuItem ;
-    private copyToolStripMenuItem : PIXIForms.ToolStripMenuItem ;
-    private pasteToolStripMenuItem : PIXIForms.ToolStripMenuItem ;
-    
+    private menuStrip1: PIXIForms.MenuStrip;
+    private fileToolStripMenuItem: PIXIForms.ToolStripMenuItem ;
+    private openToolStripMenuItem: PIXIForms.ToolStripMenuItem ;
+    private closeToolStripMenuItem: PIXIForms.ToolStripMenuItem ;
+    private editToolStripMenuItem: PIXIForms.ToolStripMenuItem ;
+    private copyToolStripMenuItem: PIXIForms.ToolStripMenuItem ;
+    private pasteToolStripMenuItem: PIXIForms.ToolStripMenuItem ;
 
     public constructor() {
         super();
         this.InitializeComponent();
     }
 
+    public Form1_Load() {
+        // console.log("Form1_Load");
+    }
+
+    public Form1_FormClosing(o: object, args: FormClosingEventArgs) {
+        // console.log("Form1_FormClosing");
+        // If you want to prevent the browser from closing, uncomment this line
+        // args.Cancel = true;
+    }
+
     private InitializeComponent(): void {
 
-    console.log("InitializeComponent");
+    // console.log("InitializeComponent");
     this.menuStrip1 = new PIXIForms.MenuStrip();
     this.fileToolStripMenuItem = new PIXIForms.ToolStripMenuItem();
     this.openToolStripMenuItem = new PIXIForms.ToolStripMenuItem();
@@ -29,62 +38,62 @@ export default class Form1 extends PIXIForms.Form {
     this.pasteToolStripMenuItem = new PIXIForms.ToolStripMenuItem();
     this.menuStrip1.SuspendLayout();
     this.SuspendLayout();
-    
+
     this.menuStrip1.AddItem(this.fileToolStripMenuItem);
     this.menuStrip1.AddItem(this.editToolStripMenuItem);
-            
+
     this.menuStrip1.Location = new PIXIForms.Point(0, 0);
     this.menuStrip1.Name = "menuStrip1";
     this.menuStrip1.Size = new PIXIForms.Size(284, 24);
     this.menuStrip1.TabIndex = 0;
     this.menuStrip1.Text = "menuStrip1";
 
-    // 
+    //
     // fileToolStripMenuItem
-    // 
-    this.fileToolStripMenuItem.AddDropdownItem(this.openToolStripMenuItem);    
+    //
+    this.fileToolStripMenuItem.AddDropdownItem(this.openToolStripMenuItem);
     this.fileToolStripMenuItem.AddDropdownItem(this.closeToolStripMenuItem);
     this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
     this.fileToolStripMenuItem.Size = new PIXIForms.Size(37, 20);
     this.fileToolStripMenuItem.Text = "File";
-    // 
+    //
     // openToolStripMenuItem
-    // 
+    //
     this.openToolStripMenuItem.Name = "openToolStripMenuItem";
     this.openToolStripMenuItem.Size = new PIXIForms.Size(152, 22);
     this.openToolStripMenuItem.Text = "Open";
-    // 
+    //
     // closeToolStripMenuItem
-    // 
+    //
     this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
     this.closeToolStripMenuItem.Size = new PIXIForms.Size(152, 22);
     this.closeToolStripMenuItem.Text = "Close";
-    // 
+    //
     // editToolStripMenuItem
-    // 
+    //
     this.editToolStripMenuItem.AddDropdownItem(this.copyToolStripMenuItem);
     this.editToolStripMenuItem.AddDropdownItem(this.pasteToolStripMenuItem);
     this.editToolStripMenuItem.Name = "editToolStripMenuItem";
     this.editToolStripMenuItem.Size = new PIXIForms.Size(39, 20);
     this.editToolStripMenuItem.Text = "Edit";
-    // 
+    //
     // copyToolStripMenuItem
-    // 
+    //
     this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
     this.copyToolStripMenuItem.Size = new PIXIForms.Size(152, 22);
     this.copyToolStripMenuItem.Text = "Copy";
-    // 
+    //
     // pasteToolStripMenuItem
-    // 
+    //
     this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
     this.pasteToolStripMenuItem.Size = new PIXIForms.Size(152, 22);
     this.pasteToolStripMenuItem.Text = "Paste";
-    // 
+    //
     // Form1
-    // 
-    //this.AutoScaleDimensions = new PIXIForms.SizeF(6F, 13F);
-    //this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-    //this.ClientSize = new PIXIForms.Size(284, 262);
+    //
+    // this.AutoScaleDimensions = new PIXIForms.SizeF(6F, 13F);
+    // this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+    // this.ClientSize = new PIXIForms.Size(284, 262);
     this.Controls.push(this.menuStrip1);
     this.MainMenuStrip = this.menuStrip1;
     this.Name = "Form1";
@@ -98,15 +107,4 @@ export default class Form1 extends PIXIForms.Form {
 
     }
 
-    public Form1_Load()
-    {
-        console.log("Form1_Load");
-    }
-
-    public Form1_FormClosing(o:object, args:FormClosingEventArgs)
-    {
-        console.log("Form1_FormClosing");
-        // If you want to prevent the browser from closing, uncomment this line
-        //args.Cancel = true;
-    }
 }
