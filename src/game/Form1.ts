@@ -54,7 +54,7 @@ export default class Form1 extends PIXIForms.Form {
     this.fileToolStripMenuItem.AddDropdownItem(this.openToolStripMenuItem);
     this.fileToolStripMenuItem.AddDropdownItem(this.closeToolStripMenuItem);
     this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-    this.fileToolStripMenuItem.Size = new PIXIForms.Size(37, 20);
+    this.fileToolStripMenuItem.Size = new PIXIForms.Size(60, 20);
     this.fileToolStripMenuItem.Text = "File";
     //
     // openToolStripMenuItem
@@ -74,7 +74,7 @@ export default class Form1 extends PIXIForms.Form {
     this.editToolStripMenuItem.AddDropdownItem(this.copyToolStripMenuItem);
     this.editToolStripMenuItem.AddDropdownItem(this.pasteToolStripMenuItem);
     this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-    this.editToolStripMenuItem.Size = new PIXIForms.Size(39, 20);
+    this.editToolStripMenuItem.Size = new PIXIForms.Size(60, 20);
     this.editToolStripMenuItem.Text = "Edit";
     //
     // copyToolStripMenuItem

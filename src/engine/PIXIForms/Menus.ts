@@ -1,4 +1,9 @@
-import {Control} from "./Controls";
+import * as debug from "debug";
+import { Control } from "./Controls";
+
+const debugToto = debug("toto");
+
+localStorage.debug = "toto";
 
 export class ToolStripMenuItem extends Control {
     public DropDownItems: ToolStripMenuItem[];
@@ -18,12 +23,11 @@ export class ToolStripMenuItem extends Control {
      * @memberof ToolStripMenuItem
      */
     public PerformLayout() {
-    let currentHeight: number = this.Size.y;
-    for ( const element of this.DropDownItems)
-        {
-        element.Location.x = this.Location.x;
-        element.Location.y = this.Location.y + currentHeight;
-        currentHeight += element.Size.y;
+        let currentHeight: number = this.Size.y;
+        for (const element of this.DropDownItems) {
+            element.Location.x = this.Location.x;
+            element.Location.y = this.Location.y + currentHeight;
+            currentHeight += element.Size.y;
         }
     }
 
@@ -42,25 +46,31 @@ export class ToolStripMenuItem extends Control {
     public Render() {
 
         this.removeChildren();
-        const tempItem = this.Parent as ToolStripMenuItem;
-        if (tempItem.opened === true) {
-        this.pixiText = new PIXI.extras.BitmapText(this.Text, { font: "ProggyClean", align: "right" });
-        this.pixiText.position.x = this.Location.x;
-        this.pixiText.position.y = this.Location.y;
-        this.addChild(this.pixiText);
+        const tempParent = this.Parent as ToolStripMenuItem;
+        if (tempParent.opened === true) {
+            this.pixiText = new PIXI.extras.BitmapText(this.Text + "- O", { font: "ProggyClean", align: "right" });
+            this.pixiText.position.x = this.Location.x;
+            this.pixiText.position.y = this.Location.y;
+            this.addChild(this.pixiText);
+        } else {
+            this.pixiText = new PIXI.extras.BitmapText(this.Text + "- C", { font: "ProggyClean", align: "right" });
+            this.pixiText.position.x = this.Location.x;
+            this.pixiText.position.y = this.Location.y;
+            this.addChild(this.pixiText);
+        }
 
         this.interactive = true;
         this.buttonMode = true;
         this.on("pointerdown", this.onDragStart);
         this.on("pointerup", this.onDragEnd);
-        }
 
         super.Render();
     }
 
     private onDragStart = (event) => {
-        // coucou
+        debugToto("onDragStart");
         this.opened = !this.opened;
+        this.Dirty = true; // Should call render again
     }
     private onDragEnd = () => {
         // coucou
@@ -77,20 +87,19 @@ export class ToolStripMenuItem extends Control {
 export class MenuStrip extends Control {
     public items: ToolStripMenuItem[];
     public opened: boolean;
-   constructor() {
+    constructor() {
         super();
         this.items = new Array();
         this.opened = true;
     }
 
     public PerformLayout() {
-    let currentWidth: number = this.Location.x;
-    for ( const element of this.items)
-        {
-        element.Location.x = this.Location.x + currentWidth;
-        element.Location.y = this.Location.y;
-        currentWidth += element.Size.x;
-        element.PerformLayout();
+        let currentWidth: number = this.Location.x;
+        for (const element of this.items) {
+            element.Location.x = this.Location.x + currentWidth;
+            element.Location.y = this.Location.y;
+            currentWidth += element.Size.x;
+            element.PerformLayout();
         }
     }
 
